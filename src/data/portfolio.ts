@@ -29,7 +29,7 @@ export const projects: Project[] = [
     title: "Order Together - Food Ordering App",
     description:
       "Cross-platform mobile food ordering application built with React Native and Expo. Features cart management, real-time order tracking, skeleton loading, secure session persistence, and receipt generation.",
-    technologies: ["React Native", "Expo", "TypeScript", "Node.js", "Firebase"],
+    technologies: ["React Native", "Expo", "TypeScript", ".NET", "SQL"],
     featured: true,
     imageUrl: "/projects/OrderTogetherLogo.png",
     githubUrl: "https://github.com/AbdelRahmanAziz2023/Order_Together",
