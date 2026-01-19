@@ -20,6 +20,7 @@ export const skills: Skill[] = [
 
   // Tools
   { name: "Git", category: "tools", level: "expert" },
+  { name: "Agile Methods", category: "tools", level: "intermediate" },
   //   { name: "Docker", category: "tools", level: "intermediate" },
 ];
 
