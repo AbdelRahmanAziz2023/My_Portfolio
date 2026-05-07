@@ -1,4 +1,8 @@
-export { Button } from './Button';
-export { Card } from './Card';
-export { SectionTitle } from './SectionTitle';
-export { Header } from './Header';
+export { Button } from './Button'
+export { Card } from './Card'
+export { SectionTitle } from './SectionTitle'
+export { Header } from './Header'
+export { Badge } from './Badge'
+export { TagPill } from './TagPill'
+export { StatBlock } from './StatBlock'
+export { RevealOnScroll } from './RevealOnScroll'

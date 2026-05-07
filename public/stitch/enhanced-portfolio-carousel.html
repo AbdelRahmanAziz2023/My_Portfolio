@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Abdelrahman Aziz | Full Stack Software Engineer</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts: Space Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            'noir-bg': '#0a0a0f',
+            'noir-card': 'rgba(23, 23, 33, 0.7)',
+            'cyan-accent': '#00d2ff',
+            'purple-accent': '#9d50bb',
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'glow-pulse': 'glow-pulse 4s infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+              '50%': { transform: 'translateY(-20px) rotate(2deg)' },
+            },
+            'glow-pulse': {
+              '0%': { boxShadow: '0 0 5px rgba(157, 80, 187, 0.2)' },
+              '100%': { boxShadow: '0 0 20px rgba(0, 210, 255, 0.4)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-animations">
+    /* Reveal on Scroll logic classes */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Glassmorphism utility */
+    .glass {
+      background: rgba(23, 23, 33, 0.6);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Neo-noir gradients */
+    .text-gradient {
+      background: linear-gradient(135deg, #00d2ff 0%, #9d50bb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .bg-gradient-glow {
+      background: radial-gradient(circle at 50% 50%, rgba(157, 80, 187, 0.15), transparent 70%);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0f;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9d50bb;
+    }
+  </style>
+<style>
+    .project-carousel-container {
+      perspective: 1000px;
+      overflow: visible;
+    }
+    .project-card-wrapper {
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      width: 100%;
+      max-width: 600px;
+    }
+    .project-card-wrapper.active {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+      pointer-events: auto;
+      z-index: 30;
+    }
+    .project-card-wrapper.prev {
+      opacity: 0.4;
+      transform: translateX(-110%) scale(0.85);
+      pointer-events: auto;
+      z-index: 20;
+    }
+    .project-card-wrapper.next {
+      opacity: 0.4;
+      transform: translateX(10%) scale(0.85);
+      pointer-events: auto;
+      z-index: 20;
+    }
+  </style></head>
+<body class="bg-noir-bg text-gray-200 font-sans selection:bg-purple-accent selection:text-white">
+<!-- BEGIN: Navigation -->
+<nav class="fixed top-0 left-0 w-full z-50 glass border-b border-white/5 py-4 px-6 md:px-12">
+<div class="max-w-7xl mx-auto flex justify-between items-center">
+<div class="flex items-center gap-2 group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-cyan-accent to-purple-accent flex items-center justify-center font-bold text-white shadow-lg group-hover:scale-110 transition-transform">
+          AA
+        </div>
+<span class="font-bold text-xl tracking-tighter">Abdelrahman Aziz</span>
+</div>
+<div class="hidden md:flex gap-8 items-center text-sm font-medium uppercase tracking-widest text-gray-400">
+<a class="hover:text-cyan-accent transition-colors" href="#home">Home</a>
+<a class="hover:text-cyan-accent transition-colors" href="#about">About</a>
+<a class="hover:text-cyan-accent transition-colors" href="#projects">Projects</a>
+<a class="hover:text-cyan-accent transition-colors" href="#contact">Contact</a>
+<a class="bg-gradient-to-r from-cyan-accent to-purple-accent px-5 py-2 rounded-full text-white shadow-lg hover:shadow-cyan-accent/20 transition-all active:scale-95" href="#">Resume</a>
+</div>
+</div>
+</nav>
+<!-- END: Navigation -->
+<!-- BEGIN: HeroSection -->
+<section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-gradient-glow" id="home">
+<!-- Ambient background glows -->
+<div class="absolute -top-48 -left-48 w-96 h-96 bg-purple-accent/20 blur-[120px] rounded-full"></div>
+<div class="absolute top-1/2 -right-48 w-80 h-80 bg-cyan-accent/10 blur-[100px] rounded-full"></div>
+<div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center relative z-10">
+<div class="reveal">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-cyan-accent mb-6">
+<span class="w-2 h-2 rounded-full bg-cyan-accent animate-pulse"></span>
+          Welcome to my portfolio
+        </div>
+<h1 class="text-5xl md:text-7xl font-bold leading-tight mb-6">
+          Hi, I'm <br/>
+<span class="text-gradient">Abdelrahman Aziz</span>
+</h1>
+<p class="text-xl text-gray-400 max-w-lg mb-10 leading-relaxed">
+          Passionate software engineer with expertise in building scalable applications across mobile, frontend, and backend technologies.
+        </p>
+<div class="flex flex-wrap gap-4">
+<a class="px-8 py-4 bg-gradient-to-r from-cyan-accent to-purple-accent rounded-xl font-bold text-white shadow-xl hover:shadow-cyan-accent/30 hover:-translate-y-1 transition-all" href="#projects">View My Work</a>
+<a class="px-8 py-4 bg-white/5 border border-white/10 rounded-xl font-bold hover:bg-white/10 transition-all" href="#contact">Get In Touch</a>
+</div>
+<div class="mt-16 flex gap-12">
+<div>
+<div class="text-3xl font-bold text-gradient">2+</div>
+<div class="text-xs uppercase tracking-tighter text-gray-500">Years Experience</div>
+</div>
+<div>
+<div class="text-3xl font-bold text-gradient">5+</div>
+<div class="text-xs uppercase tracking-tighter text-gray-500">Projects Completed</div>
+</div>
+<div>
+<div class="text-3xl font-bold text-gradient">1+</div>
+<div class="text-xs uppercase tracking-tighter text-gray-500">Happy Clients</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center items-center relative reveal">
+<!-- Main Image Container with parallax/float effect -->
+<div class="relative w-72 h-72 md:w-96 md:h-96 animate-float">
+<div class="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-accent to-cyan-accent blur-2xl opacity-40 animate-pulse"></div>
+<div class="relative w-full h-full rounded-full border-4 border-white/10 overflow-hidden shadow-2xl">
+<img alt="Abdelrahman Aziz" class="w-full h-full object-cover scale-150 -translate-y-10" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj8agASAyDpWHusO4aO0C9DOq82s4zitNLuqIuUWvyvtej9_suBUlvJ1ApVEABERwTU-5BtqswQ1tJx3rh_qb5nGsHe7jV5_u5gq25fOsrM-UHA81NGEoCiHKdfCyPIZNZqaMcPnXoWuyuVYv3NEMhSIQYn9hZaZhDAs1FGEfWRhTNL5SZaDZCUegBtHz12GOkwyq_9NPsYYwtMVGswv6DcI9bsHVwJhhweTsykxO4yY7XYf2aWbb9KAc-89g11nzXWl9sTZgXw_xf" style="object-position: top center;"/>
+</div>
+<!-- Decorative bits -->
+<div class="absolute -bottom-4 -right-4 w-24 h-24 glass rounded-2xl flex items-center justify-center p-4 border border-white/10">
+<div class="text-cyan-accent text-3xl font-bold">JS</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: AboutSection -->
+<section class="py-24 relative overflow-hidden" id="about">
+<div class="container mx-auto px-6">
+<div class="text-center mb-20 reveal">
+<h2 class="text-4xl md:text-5xl font-bold mb-4">About Me</h2>
+<div class="w-24 h-1.5 bg-gradient-to-r from-cyan-accent to-purple-accent mx-auto rounded-full mb-6"></div>
+<p class="text-gray-400 max-w-2xl mx-auto">Learn more about my background and expertise in full-stack development.</p>
+</div>
+<div class="grid lg:grid-cols-2 gap-12">
+<!-- Professional Bio -->
+<div class="glass p-8 md:p-12 rounded-3xl reveal">
+<h3 class="text-2xl font-bold mb-6 text-cyan-accent">Professional Background</h3>
+<div class="space-y-6 text-gray-400 leading-relaxed">
+<p>I'm a full-stack software engineer with 2+ years of experience building scalable applications. My expertise spans across mobile development, modern frontend frameworks, and backend services.</p>
+<p>I'm passionate about writing clean, maintainable code and delivering exceptional user experiences. When I'm not coding, you can find me contributing to open-source projects or learning new technologies.</p>
+</div>
+<div class="mt-12">
+<h4 class="text-sm font-bold uppercase tracking-widest text-white mb-6">Key Achievements</h4>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="text-cyan-accent">✓</span>
+<span class="text-gray-400">Led development of 2+ production applications</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="text-cyan-accent">✓</span>
+<span class="text-gray-400">Improved application performance by 20%</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Skills Grid -->
+<div class="space-y-8 reveal">
+<div data-purpose="skill-group">
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="w-2 h-6 bg-purple-accent rounded-full"></span>
+              Frontend Development
+            </h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">React</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">Angular</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">TypeScript</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">Tailwind CSS</span>
+</div>
+</div>
+<div data-purpose="skill-group">
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="w-2 h-6 bg-purple-accent rounded-full"></span>
+              Backend Development
+            </h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-purple-accent transition-all hover:shadow-[0_0_10px_rgba(157,80,187,0.3)] cursor-default">Node.js</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-purple-accent transition-all hover:shadow-[0_0_10px_rgba(157,80,187,0.3)] cursor-default">Express.js</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-purple-accent transition-all hover:shadow-[0_0_10px_rgba(157,80,187,0.3)] cursor-default">MongoDB</span>
+</div>
+</div>
+<div data-purpose="skill-group">
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="w-2 h-6 bg-purple-accent rounded-full"></span>
+              Mobile Development
+            </h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">React Native</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-cyan-accent transition-all hover:shadow-[0_0_10px_rgba(0,210,255,0.3)] cursor-default">Flutter</span>
+</div>
+</div>
+<div data-purpose="skill-group">
+<h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+<span class="w-2 h-6 bg-purple-accent rounded-full"></span>
+              Tools &amp; DevOps
+            </h3>
+<div class="flex flex-wrap gap-3">
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-purple-accent transition-all hover:shadow-[0_0_10px_rgba(157,80,187,0.3)] cursor-default">Git</span>
+<span class="px-4 py-2 bg-white/5 border border-white/10 rounded-lg hover:border-purple-accent transition-all hover:shadow-[0_0_10px_rgba(157,80,187,0.3)] cursor-default">Agile Methods</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: AboutSection -->
+<!-- BEGIN: ProjectsSection -->
+<section class="py-24 bg-noir-bg/50 relative pb-32" id="projects">
+<div class="container mx-auto px-6">
+<div class="text-center mb-20 reveal">
+<h2 class="text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
+<div class="w-24 h-1.5 bg-gradient-to-r from-cyan-accent to-purple-accent mx-auto rounded-full mb-6"></div>
+<p class="text-gray-400 max-w-2xl mx-auto">Showcase of my recent work and accomplishments across platforms.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-10"><div class="project-carousel-container relative h-[700px] md:h-[600px] flex items-center justify-center">
+<div class="project-card-wrapper active" data-index="0"><div class="group glass rounded-3xl overflow-hidden hover:shadow-[0_0_30px_rgba(157,80,187,0.2)] transition-all duration-500">
+<div class="h-64 overflow-hidden relative">
+<img alt="Order Together" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxs1iTasqs2HnYeCqJrC1A9aoA_IYfZ3dhLaTFq0Pe57TeKDZpAREi4aMeHKsaS9uDJ4DL7lPQrAeUtsZbjh2fyarmH8qlIXheI-mo1aWA1DTqAfFmmIjwmH_41eUEWpWpEvkIlV5ruH7vGbJt35oOHwaxkXSakK9vO89JiWwVxe_LOdNirQWaghgPg5mR6ffy4jNb0AkBnvi3eYJAmAyiz8nZS9sxjYWe187odoxJPRc-DUScjaGFkNuaHKu_UrqL4MDcheOS_8u0"/>
+<div class="absolute inset-0 bg-gradient-to-t from-noir-bg to-transparent"></div>
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">Order Together - Food Ordering App</h3>
+<p class="text-gray-400 mb-6">Cross-platform mobile food ordering application built with React Native and Expo. Features cart management, real-time order tracking.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="text-[10px] uppercase font-bold tracking-widest px-2 py-1 bg-cyan-accent/10 text-cyan-accent border border-cyan-accent/20 rounded">React Native</span>
+</div>
+<a class="block w-full py-3 text-center border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold" href="#">GitHub</a>
+</div>
+</div></div>
+<div class="project-card-wrapper next" data-index="1"><div class="group glass rounded-3xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,210,255,0.2)] transition-all duration-500">
+<div class="h-64 overflow-hidden relative">
+<img alt="SoundJoy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeTlNhgvJjq_dodW-Vq2rDVFp-FZ-ovFM9ikPC333DeS9B0Oc_kVpyrTTUFNQAKX9fv6pZX3jgGNXsz_K1tFDnkXZmiFDAmK8yl1nnZso_WHFboAv1jiJ7PmwKoEaywWjiXdD8nim4gSea6k_wJ57YNqWih1n7rfdgJVJSIIbuuyNWC8Vz2tGeKDUT9zSDC_EQyuqsnnVA6or6Rly4P5zz17_WGW9M0WnEB9wW7Wkq-abFZQhQaSIFUL_l9zksfK3keOA-51ac5Tgj"/>
+<div class="absolute inset-0 bg-gradient-to-t from-noir-bg to-transparent"></div>
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">SoundJoy - E-Commerce Platform</h3>
+<p class="text-gray-400 mb-6">Full-featured MEAN stack e-commerce platform for purchasing headphones. Features JWT authentication and Stripe integration.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="text-[10px] uppercase font-bold tracking-widest px-2 py-1 bg-purple-accent/10 text-purple-accent border border-purple-accent/20 rounded">Angular</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<a class="py-3 text-center bg-cyan-accent rounded-xl text-noir-bg font-bold hover:brightness-110 transition-all" href="#">Live Demo</a>
+<a class="py-3 text-center border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold" href="#">GitHub</a>
+</div>
+</div>
+</div></div>
+<div class="project-card-wrapper" data-index="2"><div class="group glass rounded-3xl overflow-hidden hover:shadow-[0_0_30px_rgba(157,80,187,0.2)] transition-all duration-500">
+<div class="h-64 overflow-hidden relative">
+<img alt="Food Delivery" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOM-G18U4YwZ95FwkTson1rPIZxC5AU6TNJ0vSNQN0oGz3n7DuwbxW93i9F0QFaUCASU_o_8k9Wahv5tZ9ebcLYwpOj2w-zMjdafGqJv6kWrc5I4rr4JzYPXPb5MS5sbhacy-21W6qAjmavkD8YpqLKkFpwKQ61JwjxGC3jmR2BnRTwNQpnKjwQZ5CaEOfA6f0ECD4o-wfFYjw0aYS3QxCFEm5GI6x53b-K7y7eQVcradSXBbIq0pKBUmITZl9h4EukDR24a9MaTRh"/>
+<div class="absolute inset-0 bg-gradient-to-t from-noir-bg to-transparent"></div>
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">Food Delivery App</h3>
+<p class="text-gray-400 mb-6">Production-ready React Native food ordering application with complete authentication flow and restaurant browsing.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="text-[10px] uppercase font-bold tracking-widest px-2 py-1 bg-cyan-accent/10 text-cyan-accent border border-cyan-accent/20 rounded">Firebase</span>
+</div>
+<a class="block w-full py-3 text-center border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold" href="#">GitHub</a>
+</div>
+</div></div>
+<div class="project-card-wrapper prev" data-index="3"><div class="group glass rounded-3xl overflow-hidden hover:shadow-[0_0_30px_rgba(0,210,255,0.2)] transition-all duration-500">
+<div class="h-64 overflow-hidden relative">
+<img alt="HomeHand" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXecvkR6ZvIuiwLG7TAdrRt7v9YeDBIK6uVyNJ1TRJ6NG1hX2X0AH7_Vc2-32bNVoti4mUwQx2S7XWSjt1tl5WGFk361y-3TrHIyU3ieddwECIt2SjWd2umOglgq4KF3MR_FVyB_-8kbtTvINtMuoewpmv1gCPyUpc9vMpf4mGzeN2I4F12dpSM7N-4Jkt4bxawG4p6NNnZcHxcPrAX3iX96Cv4wMeNkToJ-nN-4Dg75nGYzEzllDHUaxkZL7J3PGhwTbk0RUvta1y"/>
+<div class="absolute inset-0 bg-gradient-to-t from-noir-bg to-transparent"></div>
+</div>
+<div class="p-8">
+<h3 class="text-2xl font-bold mb-4">HomeHand - Flutter App</h3>
+<p class="text-gray-400 mb-6">Cross-platform mobile application built with Flutter. Demonstrates expertise in native mobile development for iOS and Android.</p>
+<div class="flex flex-wrap gap-2 mb-8">
+<span class="text-[10px] uppercase font-bold tracking-widest px-2 py-1 bg-purple-accent/10 text-purple-accent border border-purple-accent/20 rounded">Flutter</span>
+</div>
+<a class="block w-full py-3 text-center border border-white/10 rounded-xl hover:bg-white/5 transition-all font-bold" href="#">GitHub</a>
+</div>
+</div></div>
+<!-- Navigation -->
+<div class="absolute -bottom-12 left-1/2 -translate-x-1/2 flex gap-6 z-40">
+<button class="w-12 h-12 rounded-full border border-white/10 glass flex items-center justify-center hover:bg-cyan-accent hover:text-noir-bg transition-all active:scale-90" id="prevProject">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<button class="w-12 h-12 rounded-full border border-white/10 glass flex items-center justify-center hover:bg-cyan-accent hover:text-noir-bg transition-all active:scale-90" id="nextProject">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div></div>
+</div>
+</section>
+<!-- END: ProjectsSection -->
+<!-- BEGIN: ContactSection -->
+<section class="py-24 relative" id="contact">
+<div class="container mx-auto px-6">
+<div class="text-center mb-20 reveal">
+<h2 class="text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+<div class="w-24 h-1.5 bg-gradient-to-r from-cyan-accent to-purple-accent mx-auto rounded-full mb-6"></div>
+<p class="text-gray-400 max-w-2xl mx-auto">Let's discuss your next project or career opportunity. I'm currently available for freelance work.</p>
+</div>
+<div class="grid lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+<!-- Contact Details -->
+<div class="lg:col-span-1 space-y-6 reveal">
+<div class="glass p-8 rounded-3xl border-l-4 border-cyan-accent">
+<h4 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">Email</h4>
+<a class="text-xl font-bold hover:text-cyan-accent transition-colors" href="mailto:abdelrahmanaziz23@gmail.com">abdelrahmanaziz23@gmail.com</a>
+</div>
+<div class="glass p-8 rounded-3xl border-l-4 border-purple-accent">
+<h4 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-2">Location</h4>
+<p class="text-xl font-bold">Cairo, Egypt</p>
+</div>
+<div class="glass p-8 rounded-3xl">
+<h4 class="text-xs uppercase tracking-widest text-gray-500 font-bold mb-4">Connect With Me</h4>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-cyan-accent hover:text-noir-bg transition-all" href="#">Li</a>
+<a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-cyan-accent hover:text-noir-bg transition-all" href="#">Gh</a>
+<a class="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center hover:bg-cyan-accent hover:text-noir-bg transition-all" href="#">Tw</a>
+</div>
+</div>
+</div>
+<!-- Contact Form -->
+<div class="lg:col-span-2 reveal">
+<form class="glass p-8 md:p-12 rounded-3xl space-y-6">
+<div class="grid md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-sm font-medium text-gray-400">Name</label>
+<input class="w-full bg-white/5 border-white/10 rounded-xl focus:border-cyan-accent focus:ring-cyan-accent text-white py-4 px-6" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-gray-400">Email Address</label>
+<input class="w-full bg-white/5 border-white/10 rounded-xl focus:border-cyan-accent focus:ring-cyan-accent text-white py-4 px-6" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-gray-400">Subject</label>
+<input class="w-full bg-white/5 border-white/10 rounded-xl focus:border-cyan-accent focus:ring-cyan-accent text-white py-4 px-6" placeholder="Project Inquiry" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-gray-400">Message</label>
+<textarea class="w-full bg-white/5 border-white/10 rounded-xl focus:border-cyan-accent focus:ring-cyan-accent text-white py-4 px-6" placeholder="Your message here..." rows="6"></textarea>
+</div>
+<button class="w-full py-4 bg-gradient-to-r from-cyan-accent to-purple-accent rounded-xl font-bold text-white shadow-xl hover:shadow-cyan-accent/20 transition-all active:scale-95" type="submit">Send Message</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ContactSection -->
+<!-- BEGIN: Footer -->
+<footer class="py-12 border-t border-white/5">
+<div class="container mx-auto px-6">
+<div class="grid md:grid-cols-4 gap-12 mb-12">
+<div class="col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-accent to-purple-accent flex items-center justify-center font-bold text-white text-xs">AA</div>
+<span class="font-bold text-lg">Abdelrahman Aziz</span>
+</div>
+<p class="text-gray-500 max-w-sm">Full Stack Software Engineer building high-performance applications with modern tech stacks.</p>
+</div>
+<div>
+<h5 class="font-bold mb-6 text-sm uppercase tracking-widest text-white">Quick Links</h5>
+<ul class="space-y-4 text-gray-500 text-sm">
+<li><a class="hover:text-cyan-accent transition-colors" href="#home">Home</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#about">About</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#projects">Projects</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#contact">Contact</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold mb-6 text-sm uppercase tracking-widest text-white">Socials</h5>
+<ul class="space-y-4 text-gray-500 text-sm">
+<li><a class="hover:text-cyan-accent transition-colors" href="#">LinkedIn</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#">GitHub</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#">Twitter</a></li>
+<li><a class="hover:text-cyan-accent transition-colors" href="#">Email</a></li>
+</ul>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5 text-gray-600 text-xs gap-4">
+<p>© 2024 Abdelrahman Aziz. All rights reserved.</p>
+<p>Built with React, TypeScript &amp; Tailwind CSS</p>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+<!-- BEGIN: InteractiveScripts -->
+<script data-purpose="reveal-on-scroll">
+    // Simple intersection observer for scroll reveals
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          // Stagger children if needed
+          const children = entry.target.querySelectorAll('.stagger-item');
+          children.forEach((child, index) => {
+            child.style.transitionDelay = `${index * 0.1}s`;
+          });
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+<script data-purpose="parallax-hero">
+    // Subtle parallax effect on hero section mouse move
+    const hero = document.getElementById('home');
+    const heroImage = hero?.querySelector('.animate-float');
+
+    if (hero && heroImage) {
+      hero.addEventListener('mousemove', (e) => {
+        const { clientX, clientY } = e;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        const moveX = (clientX - centerX) / 50;
+        const moveY = (clientY - centerY) / 50;
+        
+        heroImage.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+
+      // Reset on leave
+      hero.addEventListener('mouseleave', () => {
+        heroImage.style.transform = `translate(0, 0)`;
+      });
+    }
+  </script>
+<!-- END: InteractiveScripts -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.project-card-wrapper');
+      let current = 0;
+
+      const updateCarousel = () => {
+        items.forEach((item, index) => {
+          item.classList.remove('active', 'prev', 'next');
+          
+          if (index === current) {
+            item.classList.add('active');
+          } else if (index === (current - 1 + items.length) % items.length) {
+            item.classList.add('prev');
+          } else if (index === (current + 1) % items.length) {
+            item.classList.add('next');
+          }
+        });
+      };
+
+      document.getElementById('nextProject')?.addEventListener('click', () => {
+        current = (current + 1) % items.length;
+        updateCarousel();
+      });
+
+      document.getElementById('prevProject')?.addEventListener('click', () => {
+        current = (current - 1 + items.length) % items.length;
+        updateCarousel();
+      });
+    });
+  </script></body></html>

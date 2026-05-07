@@ -1,5 +1,7 @@
-export { HeroSection } from './HeroSection';
-export { AboutSection } from './AboutSection';
-export { ProjectsSection } from './ProjectsSection';
-export { ContactSection } from './ContactSection';
-export { Footer } from './Footer';
+export { HeroSection } from './HeroSection'
+export { HighlightsSection } from './HighlightsSection'
+export { AboutSection } from './AboutSection'
+export { ProjectsSection } from './ProjectsSection'
+export { ProcessSection } from './ProcessSection'
+export { ContactSection } from './ContactSection'
+export { Footer } from './Footer'

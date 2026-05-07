@@ -4,7 +4,8 @@ A modern, dark-themed portfolio website showcasing expertise in mobile developme
 
 ## 🎨 Features
 
-- **Dark Theme** - Professional dark color scheme with cyan, purple, and pink accents
+- **Cinematic design system** — Neo-noir surfaces, violet/cyan accents, glassmorphism, and scroll reveals (see [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md))
+- **Dark Theme** — Stitch-inspired palette with Space Grotesk + Inter
 - **Fully Responsive** - Mobile-first design that works on all devices
 - **Modern Stack** - React 19, TypeScript, Tailwind CSS, Vite
 - **Fast Performance** - Optimized build with minimal bundle size

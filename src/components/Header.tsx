@@ -1,97 +1,111 @@
-import React, { useState } from 'react';
-import { Button } from './Button';
-import { about } from '../data/portfolio';
+import React, { useState } from 'react'
+import { about } from '../data/portfolio'
+
+const cvButtonClass =
+  'inline-flex items-center justify-center rounded-lg border border-primary/35 bg-gradient-to-br from-primary-container to-[#564496] px-3 py-1.5 font-sans text-sm font-semibold text-on-primary shadow-glow transition-all duration-300 hover:border-primary/60 hover:shadow-glow-lg'
+
+const CV_PATH = '/assets/Abdelrahman Aziz Mobarak.pdf'
 
 interface HeaderProps {
-  name?: string;
+  name?: string
 }
 
+const navLinks = [
+  { label: 'Home', href: '#home' },
+  { label: 'Highlights', href: '#highlights' },
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Process', href: '#process' },
+  { label: 'Contact', href: '#contact' },
+]
+
 export const Header: React.FC<HeaderProps> = ({ name }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'About', href: '#about' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
-  ];
-
-  const displayName = name || about.name || 'Your Name';
+  const [menuOpen, setMenuOpen] = useState(false)
+  const displayName = name || about.name || 'Your Name'
 
   return (
-    <header className="fixed top-0 w-full bg-dark-bg/95 backdrop-blur-md border-b border-dark-border z-50">
-      <div className="container-custom flex items-center justify-between py-4">
-        {/* Logo / Profile */}
-        <div className="flex items-center space-x-3">
-          {about.profileImage ? (
+    <header className="fixed top-0 z-50 w-full border-b border-outline-variant/30 bg-surface/80 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl">
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+        aria-hidden
+      />
+      <div className="container-custom flex items-center justify-between py-3.5 sm:py-4">
+        <a href="#home" className="flex items-center gap-3 no-underline hover:opacity-95">
+          <div className="relative">
+            <span className="absolute inset-0 rounded-full bg-primary/25 blur-md" aria-hidden />
             <img
-              src='/MyLogo.png'
-              alt={displayName}
-              className="w-10 h-10 rounded-full object-fit border-2 border-accent-primary"
+              src="/MyLogo.png"
+              alt=""
+              className="relative h-10 w-10 rounded-full border border-primary/40 object-cover"
             />
-          ) : (
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary flex items-center justify-center">
-              <span className="text-dark-bg font-bold text-lg">A</span>
-            </div>
-          )}
-          <span className="font-bold text-xl text-dark-text hidden sm:inline">{displayName}</span>
-        </div>
+          </div>
+          <span className="font-display hidden text-lg font-bold text-on-surface sm:inline">{displayName}</span>
+        </a>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              className="text-dark-text-muted hover:text-accent-primary transition-colors"
+              className="text-sm font-medium text-on-surface-variant no-underline transition-colors hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
             >
               {link.label}
             </a>
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <a href="/assets/Abdelrahman Aziz Mobarak.pdf" download target="_blank" rel="noopener noreferrer">
-            <Button variant="primary" size="sm">
-              Download CV
-            </Button>
+        <div className="hidden lg:block">
+          <a href={CV_PATH} download target="_blank" rel="noopener noreferrer" className={`no-underline ${cvButtonClass}`}>
+            Download CV
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-dark-text-muted hover:text-accent-primary"
+          type="button"
+          className="rounded-lg p-2 text-on-surface-variant transition-colors hover:bg-surface-container-high/80 hover:text-secondary lg:hidden"
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav"
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          <span className="sr-only">Menu</span>
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            )}
           </svg>
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {menuOpen && (
-        <nav className="md:hidden border-t border-dark-border bg-dark-bg">
-          <div className="container-custom py-4 space-y-4">
+        <nav
+          id="mobile-nav"
+          className="border-t border-outline-variant/40 bg-surface/95 backdrop-blur-xl lg:hidden"
+        >
+          <div className="container-custom flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="block text-dark-text-muted hover:text-accent-primary"
+                className="rounded-lg px-3 py-2.5 text-on-surface-variant no-underline hover:bg-surface-container-high/80 hover:text-primary"
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <a href="/assets/cv.pdf" download target="_blank" rel="noopener noreferrer" className="block">
-              <Button variant="primary" className="w-full">
-                Download CV
-              </Button>
+            <a
+              href={CV_PATH}
+              download
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-2 w-full text-center no-underline ${cvButtonClass} py-3`}
+            >
+              Download CV
             </a>
           </div>
         </nav>
       )}
     </header>
-  );
-};
+  )
+}
