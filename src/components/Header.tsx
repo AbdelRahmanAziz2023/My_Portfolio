@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { about } from '../data/portfolio'
 
 const cvButtonClass =
-  'inline-flex items-center justify-center rounded-lg border border-primary/35 bg-gradient-to-br from-primary-container to-[#564496] px-3 py-1.5 font-sans text-sm font-semibold text-on-primary shadow-glow transition-all duration-300 hover:border-primary/60 hover:shadow-glow-lg'
-
+  'inline-flex items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-primary/90 via-primary-container to-[#5a4bb7] px-4 py-2 font-sans text-sm font-semibold text-white shadow-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:shadow-[0_8px_24px_rgba(0,0,0,0.25)] active:scale-[0.98] backdrop-blur-md'
+  
 const CV_PATH = '/assets/Abdelrahman Aziz Mobarak.pdf'
 
 interface HeaderProps {

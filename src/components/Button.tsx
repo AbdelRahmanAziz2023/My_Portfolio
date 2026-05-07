@@ -37,16 +37,19 @@ export const Button: React.FC<ButtonProps> = ({
   const base =
     'relative z-0 inline-flex items-center justify-center overflow-hidden rounded-lg font-sans font-semibold transition-all duration-300 ease-cinematic focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary disabled:pointer-events-none disabled:opacity-50'
 
-  const variants: Record<string, string> = {
-    primary:
-      'border border-primary/35 bg-gradient-to-br from-primary-container to-[#564496] text-on-primary shadow-glow hover:border-primary/60 hover:shadow-glow-lg',
-    secondary:
-      'border border-secondary/40 bg-secondary/10 text-secondary hover:border-secondary/70 hover:bg-secondary/20 hover:shadow-[0_0_28px_rgba(34,211,238,0.22)]',
-    outline:
-      'border-2 border-primary/45 bg-transparent text-primary hover:border-primary hover:bg-primary/10 hover:shadow-[0_0_32px_rgba(207,188,255,0.15)]',
-    ghost:
-      'border border-transparent bg-transparent text-on-surface-variant hover:border-outline-variant/60 hover:text-primary',
-  }
+    const variants: Record<string, string> = {
+      primary:
+        'border border-primary/30 bg-gradient-to-br from-primary-container to-[#564496] text-white shadow-sm hover:border-primary/50 hover:shadow-[0_0_14px_rgba(207,188,255,0.12)]',
+    
+      secondary:
+        'border border-secondary/30 bg-secondary/10 text-secondary hover:border-secondary/50 hover:bg-secondary/15 hover:shadow-[0_0_12px_rgba(34,211,238,0.12)]',
+    
+      outline:
+        'border border-primary/30 bg-transparent text-primary hover:border-primary/50 hover:bg-primary/5 hover:shadow-[0_0_12px_rgba(207,188,255,0.08)]',
+    
+      ghost:
+        'border border-transparent bg-transparent text-on-surface-variant hover:border-outline-variant/40 hover:text-primary hover:shadow-none',
+    }
 
   const sizes = {
     sm: 'px-3 py-1.5 text-sm',

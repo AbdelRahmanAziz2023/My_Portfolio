@@ -26,7 +26,7 @@ export const ProjectsSection: React.FC = () => {
           <SectionTitle
             eyebrow="Selected work"
             title="Featured projects"
-            subtitle="Case-study slices: problem, approach, and outcome — with clear stack and links."
+            subtitle="Showcase of my recent work and accomplishments across platforms."
           />
         </RevealOnScroll>
 

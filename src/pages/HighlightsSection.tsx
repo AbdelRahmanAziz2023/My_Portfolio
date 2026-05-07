@@ -1,7 +1,7 @@
 import React from 'react'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
-import { highlightCards, trustedLogos } from '../data/portfolio'
+import { highlightCards } from '../data/portfolio'
 
 export const HighlightsSection: React.FC = () => {
   return (
@@ -30,25 +30,6 @@ export const HighlightsSection: React.FC = () => {
             </RevealOnScroll>
           ))}
         </div>
-
-        <RevealOnScroll delayMs={120} className="mt-16">
-          <p className="badge-label mb-6 text-center text-on-surface-variant">Trusted by teams at</p>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8">
-            {trustedLogos.map((logo) => (
-              <div
-                key={logo.id}
-                className="flex h-14 min-w-[120px] items-center justify-center rounded-lg border border-outline-variant/40 bg-surface-container/50 px-6 text-sm font-medium text-on-surface-variant backdrop-blur-sm transition-all hover:border-primary/30 hover:text-primary"
-                title={logo.name}
-              >
-                {logo.imageUrl ? (
-                  <img src={logo.imageUrl} alt="" className="max-h-8 object-contain opacity-80" />
-                ) : (
-                  <span className="font-display tracking-wide">{logo.name}</span>
-                )}
-              </div>
-            ))}
-          </div>
-        </RevealOnScroll>
       </div>
     </section>
   )

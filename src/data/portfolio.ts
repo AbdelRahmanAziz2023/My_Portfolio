@@ -86,7 +86,7 @@ export const socialLinks: SocialLink[] = [
   { platform: 'GitHub', url: 'https://github.com/AbdelRahmanAziz2023', icon: 'github' },
   {
     platform: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/abdelrahman-aziz-7473b437b/',
+    url: 'https://www.linkedin.com/in/abdelrahman-aziz-169aaa403/',
     icon: 'linkedin',
   },
   { platform: 'Twitter', url: '#', icon: 'twitter' },

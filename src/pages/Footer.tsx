@@ -60,8 +60,7 @@ export const Footer: React.FC = () => {
         </div>
         <div className="border-t border-outline-variant/40 pt-8 text-center">
           <p className="text-xs text-on-surface-variant sm:text-sm">
-            © {year} {about.name}. Built with React, TypeScript & Tailwind — cinematic design system inspired by
-            Google Stitch.
+            © {year} {about.name}
           </p>
         </div>
       </div>
