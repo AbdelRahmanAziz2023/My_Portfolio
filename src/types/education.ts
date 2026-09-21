@@ -1,13 +1,26 @@
-export interface Education {
+export interface EducationItem {
   id: string
   institution: string
-  /** Degree, diploma, or program name. */
-  credential: string
+  degree: string
   field?: string
-  /** Start year, e.g. '2024'. */
-  startYear: string
-  /** End year; omit when the program is ongoing. */
-  endYear?: string
-  location?: string
+
+  /** Display dates, e.g. '2024/10'. */
+  startDate?: string
+  endDate?: string
+
   description?: string
+  logo?: string
+}
+
+export interface TrainingItem {
+  id: string
+  title: string
+  provider: string
+
+  startDate?: string
+  endDate?: string
+
+  description?: string
+  certificateImage?: string
+  verificationUrl?: string
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router'
 import { about } from '../data/portfolio'
 
 const cvButtonClass =
@@ -11,11 +12,12 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
+  { label: 'Home', href: '/' },
   { label: 'Highlights', href: '#highlights' },
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
   { label: 'Process', href: '#process' },
+  { label: 'Education', href: '/education' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -30,7 +32,7 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         aria-hidden
       />
       <div className="container-custom flex items-center justify-between py-3.5 sm:py-4">
-        <a href="#home" className="flex items-center gap-3 no-underline hover:opacity-95">
+        <Link to="/" className="flex items-center gap-3 no-underline hover:opacity-95">
           <div className="relative">
             <span className="absolute inset-0 rounded-full bg-primary/25 blur-md" aria-hidden />
             <img
@@ -40,18 +42,28 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
             />
           </div>
           <span className="font-display hidden text-lg font-bold text-on-surface sm:inline">{displayName}</span>
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-on-surface-variant no-underline transition-colors hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith('/') ? (
+              <Link
+                key={link.label}
+                to={link.href}
+                className="text-sm font-medium text-on-surface-variant no-underline transition-colors hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium text-on-surface-variant no-underline transition-colors hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
+              >
+                {link.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <div className="hidden lg:block">
@@ -84,16 +96,27 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
           className="border-t border-outline-variant/40 bg-surface/95 backdrop-blur-xl lg:hidden"
         >
           <div className="container-custom flex flex-col gap-1 py-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="rounded-lg px-3 py-2.5 text-on-surface-variant no-underline hover:bg-surface-container-high/80 hover:text-primary"
-                onClick={() => setMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith('/') ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="rounded-lg px-3 py-2.5 text-on-surface-variant no-underline hover:bg-surface-container-high/80 hover:text-primary"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="rounded-lg px-3 py-2.5 text-on-surface-variant no-underline hover:bg-surface-container-high/80 hover:text-primary"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
             <a
               href={CV_PATH}
               download

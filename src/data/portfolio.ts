@@ -1,4 +1,4 @@
-import type { Skill, SocialLink, TrustedLogo } from '../types/portfolio'
+import type { ExperienceMilestone, Skill, SocialLink, TrustedLogo } from '../types/portfolio'
 
 export const skills: Skill[] = [
   { name: 'React', category: 'frontend', level: 'advanced' },
@@ -82,3 +82,36 @@ export const highlightCards = [
     icon: '🤝',
   },
 ] as const
+
+/**
+ * Career timeline shown in the About section (migrated from the component
+ * so content lives in the data layer, not in UI).
+ */
+export const milestones: ExperienceMilestone[] = [
+  {
+    year: '2026/02 - Present',
+    title: 'Node.js Backend Developer – AMB Company',
+    detail:
+      'Developed scalable REST APIs and real-time systems using MQTT pub/sub architecture. Managed authentication, databases, and third-party integrations. Contributed to ProTek production app.',
+  },
+
+  {
+    year: '2026/01 – Present',
+    title: 'React Native Developer (Freelance)',
+    detail:
+      'Built scalable cross-platform e-commerce apps (Vendor & User) using React Native, TypeScript, RTK & RTK Query. Integrated Paymob payments, authentication, and REST APIs following MVVM architecture.',
+  },
+
+  {
+    year: '2025/10 - 2026/01',
+    title: 'React Native Intern – IKEN Technology',
+    detail:
+      'Worked on production mobile apps using React Native. Implemented UI, navigation, Firebase integration, and state management (Redux / Zustand). Followed Agile workflows and Git collaboration practices.',
+  },
+  {
+    year: 'Education (2024/10 - 2025/06)',
+    title: 'Information Technology Institute (ITI) – Mobile Development (PTP)',
+    detail:
+      '9-month professional training program focused on cross-platform mobile application development using modern industry practices.',
+  },
+]

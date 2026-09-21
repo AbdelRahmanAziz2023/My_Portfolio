@@ -16,3 +16,10 @@ export interface TrustedLogo {
   /** Optional image path under /public */
   imageUrl?: string
 }
+
+/** Work/education timeline entry shown in the About section. */
+export interface ExperienceMilestone {
+  year: string
+  title: string
+  detail: string
+}
