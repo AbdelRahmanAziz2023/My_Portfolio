@@ -98,3 +98,19 @@ export const getProjectBySlug = (slug: string): Project | undefined =>
 export const getProjectsByCategory = (category: string): Project[] =>
   projects.filter((p) => p.category === category)
 
+/** Array-order index of a project, or -1 when not found. */
+export const getProjectIndex = (id: string): number =>
+  projects.findIndex((p) => p.id === id)
+
+/** Project immediately before the given one in dataset order (non-circular). */
+export const getPreviousProject = (id: string): Project | undefined => {
+  const index = getProjectIndex(id)
+  return index > 0 ? projects[index - 1] : undefined
+}
+
+/** Project immediately after the given one in dataset order (non-circular). */
+export const getNextProject = (id: string): Project | undefined => {
+  const index = getProjectIndex(id)
+  return index !== -1 && index < projects.length - 1 ? projects[index + 1] : undefined
+}
+

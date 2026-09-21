@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { Card } from '../Card'
 import { buttonClasses } from '../common/buttonStyles'
 import { TagPill } from '../TagPill'
@@ -135,12 +136,19 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
 
           {/* Actions */}
           <div className="flex flex-wrap gap-3">
+            <Link
+              to={`/projects/${project.slug}`}
+              className={buttonClasses('primary', 'sm')}
+            >
+              View Project
+            </Link>
+
             {project.links?.live && (
               <a
                 href={project.links.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={buttonClasses('primary', 'sm')}
+                className={buttonClasses('secondary', 'sm')}
               >
                 Live Demo
               </a>

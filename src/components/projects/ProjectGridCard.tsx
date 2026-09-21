@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { buttonClasses } from '../common/buttonStyles'
 import { Card } from '../Card'
 import { TagPill } from '../TagPill'
@@ -78,13 +79,20 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
         </div>
 
         {/* Actions */}
-        <div className="mt-auto flex gap-3">
+        <div className="mt-auto flex flex-wrap gap-3">
+          <Link
+            to={`/projects/${project.slug}`}
+            className={`${buttonClasses('primary', 'sm')} flex-1`}
+          >
+            View Project
+          </Link>
+
           {project.links?.live && (
             <a
               href={project.links.live}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${buttonClasses('primary', 'sm')} flex-1`}
+              className={`${buttonClasses('secondary', 'sm')} flex-1`}
             >
               Live Demo
             </a>

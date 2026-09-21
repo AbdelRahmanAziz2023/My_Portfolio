@@ -46,7 +46,10 @@ export interface Project {
   links?: {
     live?: string
     github?: string
-    store?: string
+    store?: {
+      appStore?: string
+      googlePlay?: string
+    }
   }
 
   stats?: {
