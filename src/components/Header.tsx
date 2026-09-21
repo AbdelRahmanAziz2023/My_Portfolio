@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router'
+import { Link, NavLink } from 'react-router'
 import { about } from '../data/portfolio'
 
 const cvButtonClass =
@@ -13,10 +13,7 @@ interface HeaderProps {
 
 const navLinks = [
   { label: 'Home', href: '/' },
-  { label: 'Highlights', href: '#highlights' },
-  { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Process', href: '#process' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Education', href: '/education' },
   { label: 'Contact', href: '#contact' },
 ]
@@ -47,13 +44,20 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
           {navLinks.map((link) =>
             link.href.startsWith('/') ? (
-              <Link
+              <NavLink
                 key={link.label}
                 to={link.href}
-                className="text-sm font-medium text-on-surface-variant no-underline transition-colors hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]"
+                end={link.href === '/'}
+                className={({ isActive }) =>
+                  `text-sm font-medium no-underline transition-colors ${
+                    isActive
+                      ? 'text-secondary drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]'
+                      : 'text-on-surface-variant hover:text-secondary hover:drop-shadow-[0_0_12px_rgba(34,211,238,0.35)]'
+                  }`
+                }
               >
                 {link.label}
-              </Link>
+              </NavLink>
             ) : (
               <a
                 key={link.label}
@@ -98,14 +102,21 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
           <div className="container-custom flex flex-col gap-1 py-4">
             {navLinks.map((link) =>
               link.href.startsWith('/') ? (
-                <Link
+                <NavLink
                   key={link.label}
                   to={link.href}
-                  className="rounded-lg px-3 py-2.5 text-on-surface-variant no-underline hover:bg-surface-container-high/80 hover:text-primary"
+                  end={link.href === '/'}
+                  className={({ isActive }) =>
+                    `rounded-lg px-3 py-2.5 no-underline transition-colors ${
+                      isActive
+                        ? 'bg-surface-container-high/80 text-secondary'
+                        : 'text-on-surface-variant hover:bg-surface-container-high/80 hover:text-primary'
+                    }`
+                  }
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               ) : (
                 <a
                   key={link.label}

@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button } from '../components/Button'
+import { Link } from 'react-router'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { StatBlock } from '../components/StatBlock'
+import { buttonClasses } from '../components/common/buttonStyles'
 import { about, skills } from '../data/portfolio'
+import { projects } from '../data/projects'
 
 const techStrip = skills.slice(0, 8).map((s) => s.name)
 
@@ -22,59 +24,51 @@ export const HeroSection: React.FC = () => {
       <div className="container-custom">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="space-y-8 lg:col-span-7">
+            {/* Availability / role eyebrow */}
+            <RevealOnScroll>
+              <p className="badge-label text-secondary">
+                Available for freelance &amp; full-time opportunities
+              </p>
+            </RevealOnScroll>
             
             <RevealOnScroll delayMs={60}>
               <h1 className="heading-hero text-on-surface">
                 Hi, I&apos;m{' '}
-                <span className="gradient-text block sm:inline">
-                  {about.name}
-                </span>
+                <span className="gradient-text block sm:inline">{about.name}</span>
               </h1>
             </RevealOnScroll>
 
+            {/* Specialization */}
             <RevealOnScroll delayMs={120}>
-              <p className="body-main max-w-xl text-pretty">
-                {about.bio}
+              <p className="font-display text-xl font-semibold text-secondary sm:text-2xl">
+                React Native · Mobile &amp; Frontend Developer
               </p>
             </RevealOnScroll>
 
             <RevealOnScroll delayMs={180}>
-              <div className="flex flex-wrap gap-4 pt-2">
-                <Button
-                  variant="primary"
-                  size="lg"
-                  onClick={() =>
-                    document
-                      .getElementById('projects')
-                      ?.scrollIntoView({ behavior: 'smooth' })
-                  }
-                >
-                  View work
-                </Button>
-
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={() =>
-                    document
-                      .getElementById('contact')
-                      ?.scrollIntoView({ behavior: 'smooth' })
-                  }
-                >
-                  Let&apos;s talk
-                </Button>
-              </div>
+              <p className="body-main max-w-xl text-pretty">{about.bio}</p>
             </RevealOnScroll>
 
+            {/* CTAs — router navigation + semantic in-page anchor */}
             <RevealOnScroll delayMs={220}>
-              <div className="flex flex-wrap gap-8 border-t border-outline-variant/40 pt-8">
-                <StatBlock value="2+" label="Years shipping products" />
-                <StatBlock value="5+" label="Projects in portfolio" />
-                <StatBlock value="∞" label="Curiosity for hard problems" />
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link to="/projects" className={buttonClasses('primary', 'lg')}>
+                  View Projects
+                </Link>
+                <a href="#contact" className={buttonClasses('outline', 'lg')}>
+                  Contact Me
+                </a>
               </div>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={280}>
+            <RevealOnScroll delayMs={260}>
+              <div className="flex flex-wrap gap-8 border-t border-outline-variant/40 pt-8">
+                <StatBlock value="2+" label="Years of experience" />
+                <StatBlock value={String(projects.length)} label="Projects in portfolio" />
+              </div>
+            </RevealOnScroll>
+
+            <RevealOnScroll delayMs={300}>
               <div className="rounded-xl border border-outline-variant/30 bg-surface-container/40 px-4 py-3 backdrop-blur-sm">
                 <p className="badge-label mb-2 text-on-surface-variant">
                   Stack focus
@@ -98,7 +92,7 @@ export const HeroSection: React.FC = () => {
           <RevealOnScroll delayMs={100} className="relative flex justify-center lg:col-span-5">
             <div className="relative">
               
-              {/* subtle background ring فقط */}
+              {/* subtle background ring */}
               <div
                 className="absolute inset-0 -m-4 rounded-full bg-gradient-to-tr from-primary/10 to-secondary/10 blur-2xl opacity-60"
                 aria-hidden
@@ -106,10 +100,15 @@ export const HeroSection: React.FC = () => {
 
               <div className="relative rounded-full border border-outline-variant/30 bg-surface-container/50 p-1 backdrop-blur-md">
                 {about.profileImage ? (
-                  <div className="h-56 w-56 overflow-hidden rounded-full sm:h-72 sm:w-72 md:h-80 md:w-80">
+                  <div className="aspect-square h-56 w-56 overflow-hidden rounded-full sm:h-72 sm:w-72 md:h-80 md:w-80">
                     <img
                       src={about.profileImage}
                       alt={`${about.name} profile`}
+                      width={1200}
+                      height={1800}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="h-full w-full object-cover"
                     />
                   </div>

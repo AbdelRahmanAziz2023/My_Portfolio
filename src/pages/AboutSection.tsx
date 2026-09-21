@@ -57,6 +57,7 @@ export const AboutSection: React.FC = () => {
                     'Led development of 2+ production applications',
                     'Improved application performance with measurable UX impact',
                     'Comfortable owning features from API to polished UI',
+                    'Clear interfaces with design and product; PRs that tell a story and keep CI green',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="mt-0.5 text-secondary" aria-hidden>
@@ -90,7 +91,7 @@ export const AboutSection: React.FC = () => {
                     to="/education"
                     className="text-sm font-medium text-primary transition-colors hover:text-secondary"
                   >
-                    Education &amp; Certifications →
+                    View Education &amp; Certifications
                   </Link>
                 </div>
               </Card>

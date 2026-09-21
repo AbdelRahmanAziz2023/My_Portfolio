@@ -2,24 +2,16 @@ import React from 'react'
 import { Link } from 'react-router'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
+import { ProjectsGrid } from '../components/projects/ProjectsGrid'
 import { buttonClasses } from '../components/common/buttonStyles'
 import { getFeaturedProjects, projects } from '../data/projects'
-import { FeaturedProjectsCarousel } from '../components/projects/FeaturedProjectsCarousel'
-import { ProjectGridCard } from '../components/projects/ProjectGridCard'
-import { useFeaturedProjectsCarousel } from '../components/projects/useFeaturedProjectsCarousel'
 
 export const ProjectsSection: React.FC = () => {
   const featuredProjects = getFeaturedProjects()
-  const otherProjects = projects.filter((p) => !p.featured)
 
-  const {
-    featuredCount,
-    activeIndex,
-    setActiveIndex,
-    goNext,
-    goPrev,
-    getPosition,
-  } = useFeaturedProjectsCarousel(featuredProjects)
+  // Fall back to the full centralized collection when nothing is featured,
+  // so the section never renders broken or empty without an explanation.
+  const homeProjects = featuredProjects.length > 0 ? featuredProjects : projects
 
   return (
     <section id="projects" className="section-padding scroll-mt-24 bg-surface">
@@ -35,37 +27,14 @@ export const ProjectsSection: React.FC = () => {
         <RevealOnScroll>
           <div className="mb-10 flex justify-center">
             <Link to="/projects" className={buttonClasses('outline', 'md')}>
-              View all projects
+              View All Projects
             </Link>
           </div>
         </RevealOnScroll>
 
-        {featuredCount > 0 && (
-          <>
-            <RevealOnScroll>
-              <FeaturedProjectsCarousel
-                featuredProjects={featuredProjects}
-                activeIndex={activeIndex}
-                getPosition={getPosition}
-                onSelectIndex={setActiveIndex}
-                onPrev={goPrev}
-                onNext={goNext}
-              />
-            </RevealOnScroll>
-
-          </>
-        )}
-
-        {otherProjects.length > 0 && (
-          <RevealOnScroll className="mt-20">
-            <h3 className="heading-card mb-8 text-on-surface">More projects</h3>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {otherProjects.map((project) => (
-                <ProjectGridCard key={project.id} project={project} />
-              ))}
-            </div>
-          </RevealOnScroll>
-        )}
+        <RevealOnScroll>
+          <ProjectsGrid projects={homeProjects} />
+        </RevealOnScroll>
       </div>
     </section>
   )

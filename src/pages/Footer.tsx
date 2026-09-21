@@ -1,12 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { socialLinks, about } from '../data/portfolio'
 
 const quick = [
-  { label: 'Home', href: '#home' },
-  { label: 'Highlights', href: '#highlights' },
+  { label: 'Home', href: '/' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Education', href: '/education' },
   { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Process', href: '#process' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -26,12 +26,21 @@ export const Footer: React.FC = () => {
             <ul className="grid grid-cols-2 gap-2 sm:grid-cols-1">
               {quick.map((l) => (
                 <li key={l.href}>
-                  <a
-                    href={l.href}
-                    className="text-sm text-on-surface-variant no-underline hover:text-secondary"
-                  >
-                    {l.label}
-                  </a>
+                  {l.href.startsWith('/') ? (
+                    <Link
+                      to={l.href}
+                      className="text-sm text-on-surface-variant no-underline hover:text-secondary"
+                    >
+                      {l.label}
+                    </Link>
+                  ) : (
+                    <a
+                      href={l.href}
+                      className="text-sm text-on-surface-variant no-underline hover:text-secondary"
+                    >
+                      {l.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
