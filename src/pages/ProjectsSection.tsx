@@ -1,13 +1,13 @@
 import React from 'react'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
-import { projects } from '../data/portfolio'
+import { getFeaturedProjects, projects } from '../data/projects'
 import { FeaturedProjectsCarousel } from '../components/projects/FeaturedProjectsCarousel'
 import { ProjectGridCard } from '../components/projects/ProjectGridCard'
 import { useFeaturedProjectsCarousel } from '../components/projects/useFeaturedProjectsCarousel'
 
 export const ProjectsSection: React.FC = () => {
-  const featuredProjects = projects.filter((p) => p.featured)
+  const featuredProjects = getFeaturedProjects()
   const otherProjects = projects.filter((p) => !p.featured)
 
   const {

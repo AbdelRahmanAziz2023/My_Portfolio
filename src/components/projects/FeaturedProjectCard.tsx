@@ -2,7 +2,7 @@ import React from 'react'
 import { Card } from '../Card'
 import { Button } from '../Button'
 import { TagPill } from '../TagPill'
-import type { Project } from '../../types/portfolio'
+import type { Project } from '../../types/project'
 import type { FeaturedPosition } from './useFeaturedProjectsCarousel'
 
 type FeaturedProjectCardProps = {
@@ -51,9 +51,9 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
             }}
           />
 
-          {project.imageUrl ? (
+          {project.logo ? (
             <img
-              src={project.imageUrl}
+              src={project.logo}
               alt={project.title}
               className={`
                 relative z-10 max-h-40 w-full max-w-xs object-contain
@@ -82,14 +82,14 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
             </h3>
 
             <div className="flex flex-wrap gap-2">
-              {project.meta?.role && (
+              {project.role && (
                 <TagPill variant="secondary">
-                  {project.meta.role}
+                  {project.role}
                 </TagPill>
               )}
-              {project.meta?.duration && (
+              {project.year && (
                 <TagPill variant="secondary">
-                  {project.meta.duration}
+                  {project.year}
                 </TagPill>
               )}
             </div>
@@ -101,31 +101,26 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
           </p>
 
           {/* Highlights */}
-          {project.highlights && (
+          {(project.problem || project.solution || project.impact) && (
             <div className="mb-6 grid gap-3 md:grid-cols-3">
-              {Object.entries(project.highlights).map(([key, value]) => {
-                if (!value) return null
-
-                const labels: Record<string, string> = {
-                  problem: 'Problem',
-                  solution: 'Solution',
-                  impact: 'Impact',
-                }
-
-                return (
-                  <div
-                    key={key}
-                    className="rounded-lg border border-outline-variant/25 bg-surface-container/40 p-3 backdrop-blur-sm"
-                  >
-                    <p className="badge-label mb-1 text-primary">
-                      {labels[key]}
-                    </p>
-                    <p className="text-xs leading-relaxed text-on-surface-variant">
-                      {value}
-                    </p>
-                  </div>
-                )
-              })}
+              {(
+                [
+                  ['Problem', project.problem],
+                  ['Solution', project.solution],
+                  ['Impact', project.impact],
+                ] as const
+              ).map(
+                ([label, value]) =>
+                  value && (
+                    <div
+                      key={label}
+                      className="rounded-lg border border-outline-variant/25 bg-surface-container/40 p-3 backdrop-blur-sm"
+                    >
+                      <p className="badge-label mb-1 text-primary">{label}</p>
+                      <p className="text-xs leading-relaxed text-on-surface-variant">{value}</p>
+                    </div>
+                  ),
+              )}
             </div>
           )}
 
@@ -140,26 +135,26 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
 
           {/* Actions */}
           <div className="flex flex-wrap gap-3">
-            {project.liveUrl && (
+            {project.links?.live && (
               <Button
                 variant="primary"
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.liveUrl, '_blank')
+                  window.open(project.links?.live, '_blank')
                 }}
               >
                 Live Demo
               </Button>
             )}
 
-            {project.githubUrl && (
+            {project.links?.github && (
               <Button
                 variant="outline"
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.githubUrl, '_blank')
+                  window.open(project.links?.github, '_blank')
                 }}
               >
                 GitHub

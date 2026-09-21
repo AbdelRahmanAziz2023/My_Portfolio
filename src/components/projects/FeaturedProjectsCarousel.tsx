@@ -1,7 +1,7 @@
 import React from 'react'
 import { FeaturedProjectCard } from './FeaturedProjectCard'
 import type { FeaturedPosition } from './useFeaturedProjectsCarousel'
-import type { Project } from '../../types/portfolio'
+import type { Project } from '../../types/project'
 
 type FeaturedProjectsCarouselProps = {
   featuredProjects: Project[]

@@ -1,13 +1,11 @@
+import { Navigate, Route, Routes } from 'react-router'
 import { Header } from './components'
-import {
-  HeroSection,
-  HighlightsSection,
-  AboutSection,
-  ProjectsSection,
-  ProcessSection,
-  ContactSection,
-  Footer,
-} from './pages'
+import { ScrollToTop } from './components/common/ScrollToTop'
+import { Home } from './pages/Home'
+import { Projects } from './pages/Projects'
+import { ProjectDetails } from './pages/ProjectDetails'
+import { Education } from './pages/Education'
+import { Footer } from './pages/Footer'
 
 function App() {
   return (
@@ -22,13 +20,15 @@ function App() {
         aria-hidden
       />
       <Header name="Abdelrahman Aziz" />
+      <ScrollToTop />
       <main>
-        <HeroSection />
-        <HighlightsSection />
-        <AboutSection />
-        <ProjectsSection />
-        <ProcessSection />
-        <ContactSection />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectDetails />} />
+          <Route path="/education" element={<Education />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
       <Footer />
     </div>

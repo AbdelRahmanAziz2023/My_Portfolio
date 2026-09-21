@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react'
-import type { Project } from '../../types/portfolio'
+import type { Project } from '../../types/project'
 
 export type FeaturedPosition = 'active' | 'prev' | 'next' | 'hidden'
 

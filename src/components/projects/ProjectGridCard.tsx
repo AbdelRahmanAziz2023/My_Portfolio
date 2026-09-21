@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '../Button'
 import { Card } from '../Card'
 import { TagPill } from '../TagPill'
-import type { Project } from '../../types/portfolio'
+import type { Project } from '../../types/project'
 
 type ProjectGridCardProps = {
   project: Project
@@ -26,9 +26,9 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
           }}
         />
 
-        {project.imageUrl ? (
+        {project.logo ? (
           <img
-            src={project.imageUrl}
+            src={project.logo}
             alt={project.title}
             className="h-full w-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
@@ -52,13 +52,13 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
             </h4>
 
             <p className="mt-1 text-xs text-on-surface-variant">
-              {project.meta?.role || 'Case Study'}
+              {project.role || 'Case Study'}
             </p>
           </div>
 
-          {project.meta?.duration && (
+          {project.year && (
             <TagPill variant="secondary">
-              {project.meta.duration}
+              {project.year}
             </TagPill>
           )}
         </div>
@@ -79,7 +79,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
 
         {/* Actions */}
         <div className="mt-auto flex gap-3">
-          {project.liveUrl && (
+          {project.links?.live && (
             <Button
               variant="primary"
               size="sm"
@@ -88,14 +88,14 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
               magnetic={false}
               onClick={(e) => {
                 e.stopPropagation()
-                window.open(project.liveUrl, '_blank')
+                window.open(project.links?.live, '_blank')
               }}
             >
               Live Demo
             </Button>
           )}
 
-          {project.githubUrl && (
+          {project.links?.github && (
             <Button
               variant="outline"
               size="sm"
@@ -104,7 +104,7 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
               magnetic={false}
               onClick={(e) => {
                 e.stopPropagation()
-                window.open(project.githubUrl, '_blank')
+                window.open(project.links?.github, '_blank')
               }}
             >
               GitHub
