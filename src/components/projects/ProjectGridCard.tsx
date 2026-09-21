@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from '../Button'
+import { buttonClasses } from '../common/buttonStyles'
 import { Card } from '../Card'
 import { TagPill } from '../TagPill'
 import type { Project } from '../../types/project'
@@ -80,35 +80,25 @@ export const ProjectGridCard: React.FC<ProjectGridCardProps> = ({ project }) => 
         {/* Actions */}
         <div className="mt-auto flex gap-3">
           {project.links?.live && (
-            <Button
-              variant="primary"
-              size="sm"
-              className="flex-1"
-              type="button"
-              magnetic={false}
-              onClick={(e) => {
-                e.stopPropagation()
-                window.open(project.links?.live, '_blank')
-              }}
+            <a
+              href={project.links.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${buttonClasses('primary', 'sm')} flex-1`}
             >
               Live Demo
-            </Button>
+            </a>
           )}
 
           {project.links?.github && (
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex-1"
-              type="button"
-              magnetic={false}
-              onClick={(e) => {
-                e.stopPropagation()
-                window.open(project.links?.github, '_blank')
-              }}
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`${buttonClasses('outline', 'sm')} flex-1`}
             >
               GitHub
-            </Button>
+            </a>
           )}
         </div>
       </div>

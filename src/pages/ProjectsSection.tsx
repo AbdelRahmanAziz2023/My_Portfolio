@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
+import { buttonClasses } from '../components/common/buttonStyles'
 import { getFeaturedProjects, projects } from '../data/projects'
 import { FeaturedProjectsCarousel } from '../components/projects/FeaturedProjectsCarousel'
 import { ProjectGridCard } from '../components/projects/ProjectGridCard'
@@ -28,6 +30,14 @@ export const ProjectsSection: React.FC = () => {
             title="Featured projects"
             subtitle="Showcase of my recent work and accomplishments across platforms."
           />
+        </RevealOnScroll>
+
+        <RevealOnScroll>
+          <div className="mb-10 flex justify-center">
+            <Link to="/projects" className={buttonClasses('outline', 'md')}>
+              View all projects
+            </Link>
+          </div>
         </RevealOnScroll>
 
         {featuredCount > 0 && (

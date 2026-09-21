@@ -1,42 +1,89 @@
-import { Link } from 'react-router'
+import { useMemo, useState } from 'react'
 import { RevealOnScroll } from '../components/RevealOnScroll'
-import { SectionTitle } from '../components/SectionTitle'
+import { ProjectsGrid } from '../components/projects/ProjectsGrid'
 import { projects } from '../data/projects'
 
 /**
- * Projects route ("/projects") — architectural placeholder.
- * The final Projects page design will be implemented separately; this
- * minimal listing keeps the route and data wiring functional.
+ * Dedicated Projects route ("/projects").
+ * Reads the centralized dataset from src/data/projects.ts — no local copies.
  */
 export function Projects() {
+  const [activeCategory, setActiveCategory] = useState<string>('all')
+
+  // Filter categories are derived from the data — nothing is hardcoded.
+  const categories = useMemo(
+    () =>
+      Array.from(
+        new Set(projects.map((p) => p.category).filter((c): c is string => Boolean(c))),
+      ),
+    [],
+  )
+
+  const visibleProjects = useMemo(
+    () =>
+      activeCategory === 'all'
+        ? projects
+        : projects.filter((p) => p.category === activeCategory),
+    [activeCategory],
+  )
+
+  const filterButtonClasses = (active: boolean): string =>
+    active
+      ? 'rounded-full border border-primary/50 bg-primary/15 px-4 py-2 text-sm font-medium text-primary shadow-[0_0_14px_rgba(207,188,255,0.12)] transition-all duration-300'
+      : 'rounded-full border border-outline-variant/40 bg-surface-container/60 px-4 py-2 text-sm font-medium text-on-surface-variant transition-all duration-300 hover:border-primary/35 hover:text-primary'
+
   return (
     <section className="section-padding scroll-mt-24 bg-surface">
       <div className="container-custom">
+        {/* Page header */}
         <RevealOnScroll>
-          <SectionTitle
-            eyebrow="Selected work"
-            title="Projects"
-            subtitle="Work across mobile and web. Full projects page design coming soon."
-          />
+          <header className="mb-12 text-center sm:mb-16">
+            <p className="badge-label mb-3 text-secondary">Selected work</p>
+            <h1 className="heading-section mb-4">
+              <span className="gradient-text">Projects</span>
+            </h1>
+            <p className="body-main mx-auto max-w-2xl text-on-surface-variant">
+              Mobile and web applications built with React Native, Flutter, Angular, and
+              Node.js.
+            </p>
+          </header>
         </RevealOnScroll>
 
-        <div className="mx-auto max-w-3xl">
-          <ul className="stack-lg">
-            {projects.map((project) => (
-              <li key={project.id}>
-                <Link
-                  to={`/projects/${project.slug}`}
-                  className="block rounded-xl border border-outline-variant/40 bg-surface-container/80 p-6 no-underline backdrop-blur-md transition-all duration-300 hover:border-primary/35 hover:shadow-glow"
+        {/* Category filters — rendered only when the data carries categories */}
+        {categories.length > 1 && (
+          <RevealOnScroll>
+            <div
+              className="mb-10 flex flex-wrap items-center justify-center gap-2"
+              role="group"
+              aria-label="Filter projects by category"
+            >
+              <button
+                type="button"
+                aria-pressed={activeCategory === 'all'}
+                onClick={() => setActiveCategory('all')}
+                className={filterButtonClasses(activeCategory === 'all')}
+              >
+                All
+              </button>
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  type="button"
+                  aria-pressed={activeCategory === category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`${filterButtonClasses(activeCategory === category)} capitalize`}
                 >
-                  <span className="heading-card gradient-text">{project.title}</span>
-                  {project.role && (
-                    <span className="body-sm mt-1 block">{project.role}</span>
-                  )}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+                  {category}
+                </button>
+              ))}
+            </div>
+          </RevealOnScroll>
+        )}
+
+        {/* Projects grid / empty state */}
+        <RevealOnScroll>
+          <ProjectsGrid projects={visibleProjects} />
+        </RevealOnScroll>
       </div>
     </section>
   )

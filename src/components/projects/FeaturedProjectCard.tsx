@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card } from '../Card'
-import { Button } from '../Button'
+import { buttonClasses } from '../common/buttonStyles'
 import { TagPill } from '../TagPill'
 import type { Project } from '../../types/project'
 import type { FeaturedPosition } from './useFeaturedProjectsCarousel'
@@ -136,29 +136,25 @@ export const FeaturedProjectCard: React.FC<FeaturedProjectCardProps> = ({
           {/* Actions */}
           <div className="flex flex-wrap gap-3">
             {project.links?.live && (
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open(project.links?.live, '_blank')
-                }}
+              <a
+                href={project.links.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonClasses('primary', 'sm')}
               >
                 Live Demo
-              </Button>
+              </a>
             )}
 
             {project.links?.github && (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  window.open(project.links?.github, '_blank')
-                }}
+              <a
+                href={project.links.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={buttonClasses('outline', 'sm')}
               >
                 GitHub
-              </Button>
+              </a>
             )}
           </div>
         </div>
