@@ -1,25 +1,97 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button } from '../components/Button'
 import { Card } from '../components/Card'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
 import { about, socialLinks } from '../data/portfolio'
+import {
+  isContactFormConfigured,
+  submitContactForm,
+  type ContactErrorReason,
+} from '../services/contactService'
+import type { ContactFormData, ContactFormErrors, ContactStatus } from '../types/contact'
+import { CONTACT_LIMITS, normalizeContactForm, validateContactForm } from '../utils/contactValidation'
+
+const EMPTY_FORM: ContactFormData = { name: '', email: '', message: '' }
+
+/**
+ * Visitor-facing copy per failure reason. Endpoint status codes and network
+ * details are never surfaced — they only go to the developer console.
+ */
+const SUBMIT_ERROR_COPY: Record<ContactErrorReason, string> = {
+  'not-configured':
+    'The message form is not connected to a sending service yet, so your message was not sent.',
+  network: 'Something went wrong while sending your message.',
+  server: 'Something went wrong while sending your message.',
+}
 
 export const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
+  const [formData, setFormData] = useState<ContactFormData>(EMPTY_FORM)
+  const [errors, setErrors] = useState<ContactFormErrors>({})
+  const [status, setStatus] = useState<ContactStatus>('idle')
+  const [errorReason, setErrorReason] = useState<ContactErrorReason | null>(null)
+
+  const nameRef = useRef<HTMLInputElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+
+  const isSubmitting = status === 'submitting'
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
+    const field = name as keyof ContactFormData
+    setFormData((prev) => ({ ...prev, [field]: value }))
+
+    // Drop feedback that belongs to an earlier attempt so a stale success or
+    // error message never sits next to a field the visitor is editing again.
+    setErrors((prev) => {
+      if (!prev[field]) return prev
+      const next = { ...prev }
+      delete next[field]
+      return next
+    })
+    if (status === 'success' || status === 'error') {
+      setStatus('idle')
+      setErrorReason(null)
+    }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
+
+    // Guards against a second submission while one is already in flight.
+    if (isSubmitting) return
+
+    const values = normalizeContactForm(formData)
+    const validationErrors = validateContactForm(values)
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
+      setStatus('idle')
+      setErrorReason(null)
+      // Move focus to the first invalid control so keyboard and screen-reader
+      // users land on the problem instead of having to hunt for it.
+      if (validationErrors.name) nameRef.current?.focus()
+      else if (validationErrors.email) emailRef.current?.focus()
+      else messageRef.current?.focus()
+      return
+    }
+
+    setErrors({})
+    setErrorReason(null)
+    setStatus('submitting')
+
+    const outcome = await submitContactForm(values)
+
+    if (outcome.ok) {
+      setStatus('success')
+      setFormData(EMPTY_FORM)
+      return
+    }
+
+    // Values are intentionally kept so a retry never means retyping.
+    setErrorReason(outcome.reason)
+    setStatus('error')
   }
 
   const renderIcon = (platform: string) => {
@@ -61,6 +133,10 @@ export const ContactSection: React.FC = () => {
 
   const inputClass =
     'w-full rounded-lg border border-outline-variant/50 bg-surface-low/80 px-4 py-2.5 font-sans text-on-surface placeholder:text-on-surface-variant/70 backdrop-blur-sm transition-all duration-300 focus:border-primary focus:outline-none focus:ring-2 focus:ring-secondary/35 focus:ring-offset-0'
+
+  // Invalid inputs are signalled with a border plus the message text below the
+  // field — never by color alone.
+  const invalidInputClass = 'border-error/60 focus:border-error focus:ring-error/35'
 
   return (
     <section id="contact" className="section-padding scroll-mt-24 bg-surface">
@@ -119,55 +195,159 @@ export const ContactSection: React.FC = () => {
           <RevealOnScroll delayMs={120}>
             <Card elevation="interactive">
               <h3 className="heading-card mb-6 text-on-surface">Send a message</h3>
-              <form onSubmit={handleSubmit} className="space-y-5">
+              {/*
+                Honest, up-front notice: with no endpoint configured the form
+                cannot deliver anything, so the visitor is pointed to the direct
+                email address before spending time typing a message.
+              */}
+              {!isContactFormConfigured() && (
+                <p className="body-sm mb-5 rounded-lg border border-outline-variant/40 bg-surface-low/60 px-4 py-3 text-on-surface-variant">
+                  This form is not connected to a sending service yet, so it cannot deliver
+                  messages. Please email me at{' '}
+                  <a
+                    href={`mailto:${about.email}`}
+                    className="font-medium text-primary underline underline-offset-2 hover:text-secondary"
+                  >
+                    {about.email}
+                  </a>{' '}
+                  instead.
+                </p>
+              )}
+              {/*
+                noValidate routes validation through the code in
+                `utils/contactValidation.ts` so every error is announced by the
+                field it belongs to. The native bubbles are not accessible and
+                cannot be styled. The `required` attributes are kept because
+                they still expose the required state to assistive technology.
+              */}
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 <div>
                   <label htmlFor="contact-name" className="mb-2 block text-sm font-medium text-on-surface">
                     Name
+                    <span aria-hidden="true" className="ml-0.5 text-error">
+                      *
+                    </span>
+                    <span className="sr-only"> (required)</span>
                   </label>
                   <input
+                    ref={nameRef}
                     id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className={inputClass}
+                    className={`${inputClass} ${errors.name ? invalidInputClass : ''}`}
                     placeholder="Your name"
+                    maxLength={CONTACT_LIMITS.name}
                     required
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'contact-name-error' : undefined}
                   />
+                  {errors.name && (
+                    <p id="contact-name-error" className="body-sm mt-2 text-error">
+                      {errors.name}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-email" className="mb-2 block text-sm font-medium text-on-surface">
                     Email
+                    <span aria-hidden="true" className="ml-0.5 text-error">
+                      *
+                    </span>
+                    <span className="sr-only"> (required)</span>
                   </label>
                   <input
+                    ref={emailRef}
                     id="contact-email"
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={inputClass}
+                    className={`${inputClass} ${errors.email ? invalidInputClass : ''}`}
                     placeholder="you@domain.com"
+                    inputMode="email"
+                    autoComplete="email"
+                    maxLength={CONTACT_LIMITS.email}
                     required
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'contact-email-error' : undefined}
                   />
+                  {errors.email && (
+                    <p id="contact-email-error" className="body-sm mt-2 text-error">
+                      {errors.email}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label htmlFor="contact-message" className="mb-2 block text-sm font-medium text-on-surface">
                     Message
+                    <span aria-hidden="true" className="ml-0.5 text-error">
+                      *
+                    </span>
+                    <span className="sr-only"> (required)</span>
                   </label>
                   <textarea
+                    ref={messageRef}
                     id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows={5}
-                    className={`${inputClass} resize-none`}
+                    className={`${inputClass} resize-none ${errors.message ? invalidInputClass : ''}`}
                     placeholder="What are we shipping?"
+                    maxLength={CONTACT_LIMITS.message}
                     required
+                    aria-invalid={!!errors.message}
+                    aria-describedby={errors.message ? 'contact-message-error' : undefined}
                   />
+                  {errors.message && (
+                    <p id="contact-message-error" className="body-sm mt-2 text-error">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
-                <Button variant="primary" className="w-full" type="submit" size="lg">
-                  Send message
+                <Button
+                  variant="primary"
+                  className="w-full"
+                  type="submit"
+                  size="lg"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                >
+                  {isSubmitting ? 'Sending…' : 'Send message'}
                 </Button>
+
+                {/*
+                  Success and error are mutually exclusive (both are driven by
+                  the single `status` value), so the two regions can never be
+                  announced together. Each node mounts once per outcome, which
+                  is what makes an announcement fire exactly once.
+                */}
+                {status === 'success' && (
+                  <p
+                    role="status"
+                    className="body-sm rounded-lg border border-secondary/30 bg-secondary/10 px-4 py-3 text-center text-on-surface"
+                  >
+                    Message sent successfully. I’ll get back to you soon.
+                  </p>
+                )}
+
+                {status === 'error' && errorReason && (
+                  <div role="alert" className="rounded-lg border border-error/40 bg-error/10 px-4 py-3">
+                    <p className="body-sm text-on-surface">{SUBMIT_ERROR_COPY[errorReason]}</p>
+                    <p className="body-sm mt-2 text-on-surface-variant">
+                      Please try again, or email me directly at{' '}
+                      <a
+                        href={`mailto:${about.email}`}
+                        className="font-medium text-primary underline underline-offset-2 hover:text-secondary"
+                      >
+                        {about.email}
+                      </a>
+                      .
+                    </p>
+                  </div>
+                )}
               </form>
             </Card>
           </RevealOnScroll>
