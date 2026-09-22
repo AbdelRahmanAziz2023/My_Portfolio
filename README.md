@@ -1,130 +1,97 @@
-# Abdelrahman Aziz - Full Stack Software Engineer Portfolio
+# Abdelrahman Aziz — Portfolio
 
-A modern, dark-themed portfolio website showcasing expertise in mobile development, frontend, and backend (Node.js) technologies.
+Personal portfolio single-page app: dark "cinematic neo-noir" theme, React 19 + TypeScript, built with Vite (rolldown-vite) and styled with Tailwind CSS v3.
 
-## 🎨 Features
+## Stack
 
-- **Cinematic design system** — Neo-noir surfaces, violet/cyan accents, glassmorphism, and scroll reveals (see [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md))
-- **Dark Theme** — Stitch-inspired palette with Space Grotesk + Inter
-- **Fully Responsive** - Mobile-first design that works on all devices
-- **Modern Stack** - React 19, TypeScript, Tailwind CSS, Vite
-- **Fast Performance** - Optimized build with minimal bundle size
-- **Maintainable Code** - Clean folder structure with reusable components
-- **Type Safe** - Full TypeScript support throughout
-- **SEO Ready** - Semantic HTML and meta tags
+- **Framework:** React 19 (`react-router` v8 for routing)
+- **Language:** TypeScript (strict, project references)
+- **Styling:** Tailwind CSS v3 — semantic token palette in `tailwind.config.js`, component classes in `src/index.css` (see [`DESIGN_SYSTEM.md`](./DESIGN_SYSTEM.md))
+- **Build:** `rolldown-vite` (pinned via `overrides` in `package.json`), route-level lazy splitting
+- **Package manager:** npm (requires Node 20.19+ or 22.12+)
 
-## 🚀 Quick Start
+## Commands
 
-### Prerequisites
-- Node.js 16+ installed
-- npm or yarn package manager
-
-### Installation
 ```bash
-npm install
+npm install       # install dependencies
+npm run dev       # dev server (http://localhost:5173)
+npm run build     # SEO prebuild → tsc -b → vite build → SEO postbuild
+npm run preview   # serve the production build locally
+npm run lint      # ESLint (flat config, react-hooks + react-refresh)
 ```
 
-### Development
-```bash
-npm run dev
-```
-Then visit `http://localhost:5173/`
+## Routes
 
-### Production Build
-```bash
-npm run build
-npm run preview
-```
+| Route | Page | Contents |
+|---|---|---|
+| `/` | Home | Hero → Featured projects → About → Contact |
+| `/projects` | Projects | All projects, data-derived category filter |
+| `/projects/:slug` | Project case study | Overview, gallery, tech stack, prev/next navigation |
+| `/education` | Education & Certifications | Formal education, training, certifications |
 
-## 📁 Project Structure
+Unknown routes redirect to `/`; an unknown project slug renders a no-index 404 inside the project layout.
+
+## Architecture
 
 ```
 src/
-├── components/           # Reusable UI components
-├── pages/               # Page sections (Hero, About, Projects, etc.)
-├── data/                # Portfolio content
-├── types/               # TypeScript definitions
-├── App.tsx              # Main app component
-├── index.css            # Global styles
-└── main.tsx             # Entry point
+├── components/          # Shared UI (Header, Button, Card, common/ for dialog + SEO + ScrollToTop)
+│   ├── common/          # useModalDialog/ImageLightbox (focus-trapped dialogs), Seo, JsonLd, ScrollToTop
+│   ├── projects/        # Project cards, hero, gallery, links, navigation, grid
+│   ├── certifications/  # Certification card/grid, certificate viewer
+│   └── education/       # Timeline, education cards, training section
+├── pages/               # Route compositions (Home, Projects, ProjectDetails, Education) + Home sections
+├── data/                # Single sources of truth for all content (below)
+├── types/               # TypeScript interfaces mirroring the data layer
+├── services/            # contactService — posts the contact form to an endpoint
+├── utils/               # seo.ts (runtime metadata), structuredData.ts (JSON-LD), contactValidation.ts
+└── index.css            # Tailwind layers: tokens, typography helpers, focus/reduced-motion rules
 ```
 
-## 🎨 Customization
+### Data sources
 
-### Update Your Information
-Edit `src/data/portfolio.ts`:
-- Name, title, bio, email
-- Projects and descriptions
-- Skills by category
-- Social media links
+| Content | Source of truth |
+|---|---|
+| Projects | `src/data/projects.ts` (+ helpers `getProjectBySlug`, `getFeaturedProjects`) |
+| Education | `src/data/education.ts` |
+| Certifications | `src/data/certifications.ts` |
+| About / social links / skills | `src/data/portfolio.ts` |
+| Site-wide SEO copy | `src/data/siteMeta.ts` |
 
-### Modify Colors
-Edit `tailwind.config.js` to change the dark theme colors.
+Routes, cards, galleries, sitemap, and JSON-LD are all derived from these files — there is no second list to keep in sync.
 
-### Add Profile Photo
-Place your image in `public/` and update `src/pages/HeroSection.tsx`.
+## Adding a project
 
-## 📚 Documentation
+1. **Add the data** to `src/data/projects.ts`. Required fields: `id`, `slug`, `title`, `description`, `featured`, `technologies`, and the image/link fields you actually have. Optional fields (`category`, `year`, `duration`, `role`, `logo`, `heroImage`, `problem`, `solution`, `impact`, `challenges`, `features`, `images`, `links.live`, `links.github`, `links.store`, `stats`) are rendered only when present — never invent content to fill them.
+2. **Add assets** under `public/images/projects/` (WebP preferred) and reference them by path.
+3. **Pick a stable, URL-safe `slug`** — it becomes `/projects/<slug>` and feeds prev/next navigation and the sitemap.
+4. **Build:** `npm run build` (the prebuild step regenerates `public/sitemap.xml` from the dataset).
+5. **Verify** `/projects` (card + category filter) and `/projects/<slug>` (case study, navigation).
 
-- **PORTFOLIO_GUIDE.md** - Complete customization guide
-- **SETUP_COMPLETE.md** - Setup checklist and next steps
+No component changes should be needed for a content-only addition.
 
-## 🛠️ Tech Stack
+## Adding education / training / certification entries
 
-- **Frontend Framework**: React 19
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v3
-- **Build Tool**: Vite (Rolldown)
-- **Package Manager**: npm
+Append to `src/data/education.ts` or `src/data/certifications.ts`. Dates, certificate images, and verification URLs are optional; entries without images simply don't render the certificate viewer.
 
-## 🌈 Dark Theme Colors
+## Environment variables
 
-- Dark Background: `#0f172a`
-- Dark Cards: `#1e293b`
-- Accent Primary (Cyan): `#0ea5e9`
-- Accent Secondary (Purple): `#8b5cf6`
-- Accent Tertiary (Pink): `#ec4899`
+Copy `.env.example` to `.env` (git-ignored). Both variables are optional and non-secret:
 
-## 📱 Sections
+| Variable | Purpose |
+|---|---|
+| `VITE_CONTACT_FORM_ENDPOINT` | Public endpoint accepting a JSON POST of `{ name, email, message, source }`. Unset → the form validates normally but reports honestly that sending is unavailable and shows the direct email. It never claims a message was delivered. |
+| `VITE_SITE_URL` | Production origin (no trailing slash). Used for canonical URLs, Open Graph, JSON-LD ids, `public/sitemap.xml`, and the `Sitemap:` line in `robots.txt`. Unset → the build skips absolute-URL artefacts with a warning; on Vercel/Netlify the provider's URL variable is used automatically. |
 
-1. **Header** - Sticky navigation with responsive menu
-2. **Hero** - Landing section with CTA buttons
-3. **About** - Professional background and skills
-4. **Projects** - Featured and other projects
-5. **Contact** - Contact form and social links
-6. **Footer** - Quick links and copyright
+Never put secrets in `VITE_`-prefixed variables — they are embedded in the public bundle.
 
-## 🚀 Deployment
+## SEO
 
-### Vercel
-```bash
-npm install -g vercel
-vercel
-```
+- **Runtime:** `utils/seo.ts` + `Seo.tsx` per route (title, description, canonical, OG/Twitter), `utils/structuredData.ts` + `JsonLd.tsx` (Person/WebSite/CollectionPage/CreativeWork/Breadcrumb).
+- **Build time:** `scripts/generate-seo.mjs` (`pre`/`post`) generates the sitemap from the project data, injects absolute canonical/OG tags into `dist/index.html`, and writes the production `robots.txt`. `index.html` carries a static copy of the global title/description for non-JS crawlers, kept in sync with `siteMeta` by a build check.
+- `public/sitemap.xml` is generated, not hand-maintained, and is git-ignored.
 
-### Netlify
-```bash
-npm run build
-# Drag dist folder to Netlify
-```
+## Deployment
 
-## �� Scripts
+Any static host works; the router is client-side, so the host must serve `index.html` for unknown paths (SPA fallback — Vercel/Netlify do this by default; bare static/nginx setups need a rewrite). Set `VITE_SITE_URL` to the production origin so canonical/OG/sitemap URLs are absolute. Output is plain `dist/` — no server runtime required.
 
-```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build
-npm run lint     # Run ESLint
-```
-
-## 🤝 Contributing
-
-Feel free to fork this template and customize it for your portfolio!
-
-## 📄 License
-
-This portfolio template is open source and available under the MIT License.
-
----
-
-**Built with ❤️ using React, TypeScript & Tailwind CSS**

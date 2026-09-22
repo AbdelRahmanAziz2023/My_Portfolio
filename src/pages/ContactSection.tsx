@@ -167,12 +167,8 @@ export const ContactSection: React.FC = () => {
                       <a
                         key={link.platform}
                         href={link.url}
-                        target={link.url.startsWith('mailto:') || link.url === '#' ? undefined : '_blank'}
-                        rel={
-                          link.url.startsWith('mailto:') || link.url === '#'
-                            ? undefined
-                            : 'noopener noreferrer'
-                        }
+                        target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+                        rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                         className="flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant/50 text-on-surface-variant transition-all hover:border-secondary/60 hover:text-secondary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
                         title={link.platform}
                       >
