@@ -52,12 +52,8 @@ export const Footer: React.FC = () => {
                 <li key={link.platform}>
                   <a
                     href={link.url}
-                    target={link.url.startsWith('mailto:') || link.url === '#' ? undefined : '_blank'}
-                    rel={
-                      link.url.startsWith('mailto:') || link.url === '#'
-                        ? undefined
-                        : 'noopener noreferrer'
-                    }
+                    target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+                    rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
                     className="text-sm text-on-surface-variant no-underline hover:text-secondary"
                   >
                     {link.platform}

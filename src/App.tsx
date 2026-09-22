@@ -43,7 +43,9 @@ function App() {
       <ScrollToTop />
       {/* Site-wide structured data (WebSite + Person), refreshed per route below. */}
       <JsonLd nodes={siteGraphNodes()} slot="site" />
-      <main>
+      {/* Focus target for route changes (see ScrollToTop); tabIndex -1 enables
+          programmatic focus without adding the landmark to the tab order. */}
+      <main id="main" tabIndex={-1} className="outline-none">
         <Suspense fallback={<RouteFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />

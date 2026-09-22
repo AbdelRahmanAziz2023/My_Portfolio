@@ -86,8 +86,11 @@ export function Projects() {
           </RevealOnScroll>
         )}
 
-        {/* Projects grid / empty state */}
+        {/* Projects grid / empty state. The visually hidden h2 keeps the
+            heading order intact (h1 → h2 → h3 card titles) without adding
+            visible chrome. */}
         <RevealOnScroll>
+          <h2 className="sr-only">All projects</h2>
           <ProjectsGrid projects={visibleProjects} />
         </RevealOnScroll>
       </div>

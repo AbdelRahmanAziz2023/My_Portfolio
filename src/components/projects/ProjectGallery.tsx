@@ -1,37 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import type { ProjectImage } from '../../types/project'
+import { ImageLightbox } from '../common/ImageLightbox'
 
 interface ProjectGalleryProps {
   images: ProjectImage[]
 }
 
 /**
- * Responsive, lazy-loaded project gallery with a dependency-free lightbox.
+ * Responsive, lazy-loaded project gallery sharing the site-wide lightbox.
  *
  * - 'hero' images render full-width and load eagerly (critical visual).
  * - 'gallery'/'screen' images lazy-load in a responsive grid.
  * - Captions render only when provided.
  * - Aspect-ratio containers preserve layout and prevent shift.
- * - The lightbox is a minimal internal solution (Escape / backdrop click).
+ * - The shared ImageLightbox handles focus, Escape and backdrop dismissal.
  */
 export function ProjectGallery({ images }: ProjectGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const activeImage = activeIndex === null ? undefined : images[activeIndex]
-
-  useEffect(() => {
-    if (activeIndex === null) return
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setActiveIndex(null)
-    }
-    document.addEventListener('keydown', onKeyDown)
-    document.body.style.overflow = 'hidden'
-
-    return () => {
-      document.removeEventListener('keydown', onKeyDown)
-      document.body.style.overflow = ''
-    }
-  }, [activeIndex])
 
   const renderImage = (image: ProjectImage, eager: boolean) => (
     <img
@@ -89,35 +75,13 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
       </div>
 
       {activeImage && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Enlarged image: ${activeImage.alt}`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-surface-lowest/95 p-4 backdrop-blur-sm"
-          onClick={() => setActiveIndex(null)}
-        >
-          <figure>
-            <img
-              src={activeImage.src}
-              alt={activeImage.alt}
-              className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
-            />
-            {activeImage.caption && (
-              <figcaption className="body-sm mt-3 text-center text-on-surface-variant">
-                {activeImage.caption}
-              </figcaption>
-            )}
-          </figure>
-          <button
-            type="button"
-            autoFocus
-            onClick={() => setActiveIndex(null)}
-            aria-label="Close enlarged image"
-            className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant/50 bg-surface-container/80 text-2xl text-on-surface backdrop-blur-md transition-colors hover:border-primary/50 hover:text-primary"
-          >
-            <span aria-hidden>×</span>
-          </button>
-        </div>
+        <ImageLightbox
+          src={activeImage.src}
+          alt={activeImage.alt}
+          caption={activeImage.caption}
+          closeLabel="Close enlarged image"
+          onClose={() => setActiveIndex(null)}
+        />
       )}
     </>
   )

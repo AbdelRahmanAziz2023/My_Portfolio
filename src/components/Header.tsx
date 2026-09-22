@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router'
 import { about } from '../data/portfolio'
 
@@ -20,7 +20,25 @@ const navLinks = [
 
 export const Header: React.FC<HeaderProps> = ({ name }) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const menuToggleRef = useRef<HTMLButtonElement>(null)
   const displayName = name || about.name || 'Your Name'
+
+  // Escape closes the menu and returns focus to the control that opened it.
+  // Link activations close the menu without stealing focus back: route
+  // changes already move focus to the page via <ScrollToTop />.
+  useEffect(() => {
+    if (!menuOpen) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false)
+        menuToggleRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [menuOpen])
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-outline-variant/30 bg-surface/80 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl">
@@ -29,7 +47,13 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         aria-hidden
       />
       <div className="container-custom flex items-center justify-between py-3.5 sm:py-4">
-        <Link to="/" className="flex items-center gap-3 no-underline hover:opacity-95">
+        {/* aria-label keeps the brand link named on mobile, where the
+            visible wordmark is hidden and the logo is decorative. */}
+        <Link
+          to="/"
+          aria-label={`${displayName} — home`}
+          className="flex items-center gap-3 no-underline hover:opacity-95"
+        >
           <div className="relative">
             <span className="absolute inset-0 rounded-full bg-primary/25 blur-md" aria-hidden />
             <img
@@ -79,14 +103,15 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         </div>
 
         <button
+          ref={menuToggleRef}
           type="button"
-          className="rounded-lg p-2 text-on-surface-variant transition-colors hover:bg-surface-container-high/80 hover:text-secondary lg:hidden"
+          className="rounded-lg p-2.5 text-on-surface-variant transition-colors hover:bg-surface-container-high/80 hover:text-secondary lg:hidden"
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className="sr-only">Menu</span>
-          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
             {menuOpen ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -96,12 +121,16 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         </button>
       </div>
 
-      {menuOpen && (
-        <nav
-          id="mobile-nav"
-          className="border-t border-outline-variant/40 bg-surface/95 backdrop-blur-xl lg:hidden"
-        >
-          <div className="container-custom flex flex-col gap-1 py-4">
+      {/*
+        Always mounted so `aria-controls` always references a real element;
+        the `hidden` attribute removes it from the a11y tree and tab order.
+      */}
+      <nav
+        id="mobile-nav"
+        hidden={!menuOpen}
+        className="border-t border-outline-variant/40 bg-surface/95 backdrop-blur-xl lg:hidden"
+      >
+        <div className="container-custom flex flex-col gap-1 py-4">
             {navLinks.map((link) =>
               link.href.startsWith('/') ? (
                 <NavLink
@@ -140,8 +169,7 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
               Download CV
             </a>
           </div>
-        </nav>
-      )}
+      </nav>
     </header>
   )
 }

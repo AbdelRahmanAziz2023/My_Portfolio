@@ -21,7 +21,6 @@ export const socialLinks: SocialLink[] = [
     url: 'https://www.linkedin.com/in/abdelrahman-aziz-169aaa403/',
     icon: 'linkedin',
   },
-  { platform: 'Twitter', url: '#', icon: 'twitter' },
   { platform: 'Email', url: 'mailto:abdelrahmanaziz23@gmail.com', icon: 'email' },
 ]
 
