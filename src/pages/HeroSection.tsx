@@ -103,9 +103,11 @@ export const HeroSection: React.FC = () => {
                   <div className="aspect-square h-56 w-56 overflow-hidden rounded-full sm:h-72 sm:w-72 md:h-80 md:w-80">
                     <img
                       src={about.profileImage}
+                      srcSet="/images/profile/profile-320.webp 320w, /images/profile/profile-640.webp 640w"
+                      sizes="(min-width: 768px) 320px, (min-width: 640px) 288px, 224px"
                       alt={`${about.name} profile`}
-                      width={1200}
-                      height={1800}
+                      width={640}
+                      height={960}
                       loading="eager"
                       fetchPriority="high"
                       decoding="async"

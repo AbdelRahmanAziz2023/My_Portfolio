@@ -33,8 +33,10 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
           <div className="relative">
             <span className="absolute inset-0 rounded-full bg-primary/25 blur-md" aria-hidden />
             <img
-              src="/MyLogo.png"
+              src="/images/logo/logo-96.webp"
               alt=""
+              width={96}
+              height={96}
               className="relative h-10 w-10 rounded-full border border-primary/40 object-cover"
             />
           </div>

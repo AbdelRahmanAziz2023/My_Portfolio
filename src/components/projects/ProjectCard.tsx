@@ -17,7 +17,7 @@ interface ProjectCardProps {
  */
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-container/80 backdrop-blur-md transition-all duration-300 ease-cinematic hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-glow">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-container/90 transition-[transform,border-color,box-shadow] duration-300 ease-cinematic hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-glow">
       {/* Logo / image */}
       <div className="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br from-primary-container/20 via-surface-container-high to-secondary/10 p-6">
         <div

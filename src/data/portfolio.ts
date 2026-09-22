@@ -30,7 +30,7 @@ export const about = {
   title: 'Full Stack Software Engineer',
   bio: 'Passionate software engineer with expertise in building scalable applications across mobile, frontend, and backend technologies.',
   email: 'abdelrahmanaziz23@gmail.com',
-  profileImage: '/MyPhoto.png',
+  profileImage: '/images/profile/profile-640.webp',
 }
 
 /** Placeholder-friendly logos row — swap `imageUrl` when you have assets */

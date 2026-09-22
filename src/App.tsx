@@ -1,11 +1,29 @@
+import { Suspense, lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import { Header } from './components'
 import { ScrollToTop } from './components/common/ScrollToTop'
 import { Home } from './pages/Home'
-import { Projects } from './pages/Projects'
-import { ProjectDetails } from './pages/ProjectDetails'
-import { Education } from './pages/Education'
 import { Footer } from './pages/Footer'
+
+// Route-level code splitting: Home stays in the entry chunk; secondary
+// routes (and their galleries/certificate viewers) download on demand.
+const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })))
+const ProjectDetails = lazy(() =>
+  import('./pages/ProjectDetails').then((m) => ({ default: m.ProjectDetails })),
+)
+const Education = lazy(() => import('./pages/Education').then((m) => ({ default: m.Education })))
+
+function RouteFallback() {
+  return (
+    <div
+      className="flex min-h-[60vh] items-center justify-center"
+      role="status"
+      aria-live="polite"
+    >
+      <p className="badge-label text-secondary">Loading…</p>
+    </div>
+  )
+}
 
 function App() {
   return (
@@ -22,13 +40,15 @@ function App() {
       <Header name="Abdelrahman Aziz" />
       <ScrollToTop />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:slug" element={<ProjectDetails />} />
-          <Route path="/education" element={<Education />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetails />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>
