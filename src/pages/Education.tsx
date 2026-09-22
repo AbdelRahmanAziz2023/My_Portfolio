@@ -1,10 +1,11 @@
+import { Seo } from '../components/common/Seo'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { CertificationGrid } from '../components/certifications/CertificationGrid'
 import { EducationTimeline } from '../components/education/EducationTimeline'
 import { TrainingSection } from '../components/education/TrainingSection'
-import { usePageMeta } from '../components/common/usePageMeta'
 import { certifications } from '../data/certifications'
 import { education, training } from '../data/education'
+import { pageMeta } from '../data/siteMeta'
 
 /**
  * Education route ("/education").
@@ -12,13 +13,9 @@ import { education, training } from '../data/education'
  * centralized typed data in src/data/education.ts and src/data/certifications.ts.
  */
 export function Education() {
-  usePageMeta({
-    title: 'Education & Certifications',
-    description: 'Education, professional training, and certifications.',
-  })
-
   return (
     <section className="section-padding scroll-mt-24 bg-surface">
+      <Seo title={pageMeta.education.title} description={pageMeta.education.description} />
       <div className="container-custom">
         {/* Page header */}
         <RevealOnScroll>

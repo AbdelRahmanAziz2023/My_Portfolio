@@ -1,7 +1,11 @@
 import { useMemo, useState } from 'react'
 import { RevealOnScroll } from '../components/RevealOnScroll'
+import { JsonLd } from '../components/common/JsonLd'
+import { Seo } from '../components/common/Seo'
 import { ProjectsGrid } from '../components/projects/ProjectsGrid'
 import { projects } from '../data/projects'
+import { pageMeta } from '../data/siteMeta'
+import { projectsCollectionNodes } from '../utils/structuredData'
 
 /**
  * Dedicated Projects route ("/projects").
@@ -34,6 +38,8 @@ export function Projects() {
 
   return (
     <section className="section-padding scroll-mt-24 bg-surface">
+      <Seo title={pageMeta.projects.title} description={pageMeta.projects.description} />
+      <JsonLd nodes={projectsCollectionNodes()} />
       <div className="container-custom">
         {/* Page header */}
         <RevealOnScroll>

@@ -9,6 +9,98 @@ import type { Project } from '../types/project'
  */
 export const projects: Project[] = [
   {
+  id: "examify-platform",
+  slug: "examify",
+
+  title: "ExamiFY",
+  subtitle: "Secure Online Examination & Real-Time Automated Proctoring Platform",
+  description: "A comprehensive full-stack examination platform (MERN) designed to safeguard academic integrity through real-time WebSocket proctoring, client-side event interception, and SHA-256 evidence hashing.",
+
+  featured: true,
+  category: "web",
+
+  year: "2026",
+  duration: "3 Months",
+  role: "Full-Stack Web Engineer",
+
+  logo: "/favicon.svg",
+  heroImage: "/images/projects/examify/hero.jpg",
+
+  technologies: [
+    "React 18",
+    "TypeScript",
+    "Tailwind CSS",
+    "Node.js",
+    "Express.js",
+    "PostgreSQL",
+    "MongoDB / Mongoose",
+    "WebSockets (WSS)",
+    "Zustand",
+    "Shadcn/UI",
+    "AWS S3",
+    "Vercel Serverless"
+  ],
+
+  problem: "Academic institutions struggle to prevent sophisticated online cheating methods like tab switching, unauthorized tools, or loss of window focus, while lacking tamper-proof digital evidence for post-exam review and adjudication.",
+  
+  solution: "ExamiFY provides a sandboxed examination environment connected via low-latency WebSockets to monitor student behavior, capture real-time violation evidence, hash logs via SHA-256 for cryptographic verification, and instantly alert proctors.",
+
+  impact: "Delivered a reliable testing environment with high academic compliance, significantly reduced unauthorized attempt rates using a multi-tier strikes system, and provided detailed forensic audit reports for faculty review.",
+
+  challenges: [
+    "Maintaining stable WebSocket telemetry and heartbeat monitoring over Vercel Serverless Functions.",
+    "Resolving TypeScript path alias mappings (@/*) during build execution for production deployment.",
+    "Implementing browser event traps to block keyboard shortcuts and detect multi-monitor setups."
+  ],
+
+  features: [
+    "Real-time breach detection (tab switches, window blur, display changes, and clipboard traps)",
+    "Automated strike-assignment engine that terminates exams upon threshold violation",
+    "Cryptographic audit trail with SHA-256 event chaining for tamper-proof logging",
+    "Full Arabic and English internationalization (i18n) with native RTL and Dark Mode support",
+    "Automated evidence snapshot capture uploaded securely to AWS S3 via presigned URLs",
+    "Interactive instructor dashboard for live fleet telemetry and adjudication (Pardon / Escalate)"
+  ],
+
+  images: [
+    // {
+    //   url: "/images/projects/examify/dashboard.jpg",
+    //   alt: "ExamiFY Instructor Command Center & Exam Analytics Dashboard",
+    //   caption: "Instructor Command Center"
+    // },
+    // {
+    //   url: "/images/projects/examify/active-exam.jpg",
+    //   alt: "Student Active Exam Environment with Sticky Security Header and Timer",
+    //   caption: "Active Student Workspace"
+    // },
+    // {
+    //   url: "/images/projects/examify/violation-modal.jpg",
+    //   alt: "Security Breach Warning Overlay Modal",
+    //   caption: "Security Infraction Overlay"
+    // }
+  ],
+
+  links: {
+    live: "https://examify.vercel.app",
+    github: "https://github.com/your-username/examify"
+  },
+
+  stats: [
+    {
+      label: "Academic Integrity Index",
+      value: "98.4%"
+    },
+    {
+      label: "Telemetry Latency",
+      value: "< 50ms"
+    },
+    {
+      label: "RTL & i18n Coverage",
+      value: "100%"
+    }
+  ]
+},
+  {
     id: '1',
     slug: 'order-together',
     title: 'Order Together - Food Ordering App',

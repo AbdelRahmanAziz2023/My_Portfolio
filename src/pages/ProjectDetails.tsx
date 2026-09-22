@@ -1,8 +1,9 @@
 import { Link, useParams } from 'react-router'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { StatBlock } from '../components/StatBlock'
+import { JsonLd } from '../components/common/JsonLd'
+import { Seo } from '../components/common/Seo'
 import { buttonClasses } from '../components/common/buttonStyles'
-import { usePageMeta } from '../components/common/usePageMeta'
 import { ProjectGallery } from '../components/projects/ProjectGallery'
 import { ProjectHero } from '../components/projects/ProjectHero'
 import { ProjectLinks } from '../components/projects/ProjectLinks'
@@ -15,6 +16,7 @@ import {
   getPreviousProject,
   getProjectBySlug,
 } from '../data/projects'
+import { projectGraphNodes } from '../utils/structuredData'
 
 /**
  * Project Details route ("/projects/:slug").
@@ -27,14 +29,15 @@ export function ProjectDetails() {
   const { slug } = useParams()
   const project = slug ? getProjectBySlug(slug) : undefined
 
-  usePageMeta({
-    title: project ? project.title : 'Project not found',
-    description: project?.description,
-  })
-
   if (!project) {
     return (
       <section className="section-padding scroll-mt-24 bg-surface">
+        {/* Unknown slug → not-found state, deliberately kept out of the index. */}
+        <Seo
+          title="Project not found"
+          description="The project you're looking for doesn't exist. Browse the full project list instead."
+          index={false}
+        />
         <div className="container-custom">
           <div className="mx-auto max-w-xl text-center">
             <p className="badge-label mb-3 text-secondary">404</p>
@@ -56,6 +59,8 @@ export function ProjectDetails() {
 
   return (
     <article className="section-padding scroll-mt-24 bg-surface">
+      <Seo title={project.title} description={project.description} />
+      <JsonLd nodes={projectGraphNodes(project)} />
       <div className="container-custom">
         {/* Back navigation */}
         <Link

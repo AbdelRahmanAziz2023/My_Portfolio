@@ -1,9 +1,11 @@
 import { Suspense, lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router'
 import { Header } from './components'
+import { JsonLd } from './components/common/JsonLd'
 import { ScrollToTop } from './components/common/ScrollToTop'
 import { Home } from './pages/Home'
 import { Footer } from './pages/Footer'
+import { siteGraphNodes } from './utils/structuredData'
 
 // Route-level code splitting: Home stays in the entry chunk; secondary
 // routes (and their galleries/certificate viewers) download on demand.
@@ -39,6 +41,8 @@ function App() {
       />
       <Header name="Abdelrahman Aziz" />
       <ScrollToTop />
+      {/* Site-wide structured data (WebSite + Person), refreshed per route below. */}
+      <JsonLd nodes={siteGraphNodes()} slot="site" />
       <main>
         <Suspense fallback={<RouteFallback />}>
           <Routes>

@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+# Static fallback — the post-build SEO script rewrites this file with an
+# absolute `Sitemap:` line when VITE_SITE_URL is configured.
+
+User-agent: *
+Allow: /
+
+# Assets required to render the site are intentionally not blocked:
+# /assets/*, /images/*, *.js, *.css
