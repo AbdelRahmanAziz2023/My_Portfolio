@@ -1,0 +1,39 @@
+<!-- ExamiFY 3D Solid Block Logo -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" width="40" height="40">
+  <defs>
+    <!-- 3D Solid Body Gradient -->
+    <linearGradient id="solidExamiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#818CF8" />
+      <stop offset="50%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#312E81" />
+    </linearGradient>
+
+    <!-- Glowing Checkmark Accent -->
+    <linearGradient id="neonGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38BDF8" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+
+    <!-- Soft Ambient Drop Shadow -->
+    <filter id="blockShadow" x="-10%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="6" stdDeviation="4" flood-color="#1E1B4B" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Solid 3D Emblem Container Block -->
+  <path d="M10 8 C10 4.68629 12.6863 2 16 2 H32 C35.3137 2 38 4.68629 38 8 V40 C38 43.3137 35.3137 46 32 46 H16 C12.6863 46 10 43.3137 10 40 V8 Z" 
+        fill="url(#solidExamiGrad)" 
+        filter="url(#blockShadow)" />
+
+  <!-- Single Continuous Inner 'E' + 'Checkmark' Cutout/Emboss Block -->
+  <path d="M18 12 H30 C31.1046 12 32 12.8954 32 14 C32 15.1046 31.1046 16 30 16 H22 V20 H28 C29.1046 20 30 20.8954 30 22 C30 23.1046 29.1046 24 28 24 H22 V28 H30 C31.1046 28 32 28.8954 32 30 C32 31.1046 31.1046 32 30 32 H18 C16.8954 32 16 31.1046 16 30 V14 C16 12.8954 16.8954 12 18 12 Z" 
+        fill="#FFFFFF" />
+
+  <!-- Integrated 3D Dynamic Checkmark (Glow Effect) overlaying the bottom leg -->
+  <path d="M22 28 L26 33 L35 21" 
+        stroke="url(#neonGlow)" 
+        stroke-width="4.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round" 
+        filter="url(#blockShadow)" />
+</svg>

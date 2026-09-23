@@ -5,7 +5,7 @@ import { about } from '../data/portfolio'
 const cvButtonClass =
   'inline-flex items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-primary/90 via-primary-container to-[#5a4bb7] px-4 py-2 font-sans text-sm font-semibold text-white shadow-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:shadow-[0_8px_24px_rgba(0,0,0,0.25)] active:scale-[0.98] backdrop-blur-md'
   
-const CV_PATH = '/assets/Abdelrahman Aziz Mobarak.pdf'
+const CV_PATH = '/assets/Abdelrahman Aziz CV.pdf'
 
 interface HeaderProps {
   name?: string
