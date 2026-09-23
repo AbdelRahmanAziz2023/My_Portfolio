@@ -41,7 +41,7 @@ export const HeroSection: React.FC = () => {
             {/* Specialization */}
             <RevealOnScroll delayMs={120}>
               <p className="font-display text-xl font-semibold text-secondary sm:text-2xl">
-                React Native · Mobile &amp; Frontend Developer
+                Full Stack Software Engineer &amp; Mobile Developer 
               </p>
             </RevealOnScroll>
 
