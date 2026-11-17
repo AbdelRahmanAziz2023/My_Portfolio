@@ -1,17 +1,32 @@
 import type { ExperienceMilestone, Skill, SocialLink, TrustedLogo } from '../types/portfolio'
 
 export const skills: Skill[] = [
-  { name: 'React', category: 'frontend', level: 'advanced' },
-  { name: 'Angular', category: 'frontend', level: 'intermediate' },
-  { name: 'TypeScript', category: 'frontend', level: 'advanced' },
-  { name: 'Tailwind CSS', category: 'frontend', level: 'advanced' },
-  { name: 'Node.js', category: 'backend', level: 'intermediate' },
-  { name: 'Express.js', category: 'backend', level: 'intermediate' },
-  { name: 'MongoDB', category: 'backend', level: 'intermediate' },
-  { name: 'React Native', category: 'mobile', level: 'advanced' },
-  { name: 'Flutter', category: 'mobile', level: 'intermediate' },
-  { name: 'Git', category: 'tools', level: 'expert' },
-  { name: 'Agile Methods', category: 'tools', level: 'intermediate' },
+  { name: 'React', category: 'frontend' },
+  { name: 'TypeScript', category: 'frontend' },
+  { name: 'JavaScript', category: 'frontend' },
+  { name: 'HTML', category: 'frontend' },
+  { name: 'CSS', category: 'frontend' },
+  { name: 'Salla & Zid customization', category: 'frontend' },
+  { name: 'Angular', category: 'frontend' },
+  { name: 'Tailwind CSS', category: 'frontend' },
+  { name: 'Node.js', category: 'backend' },
+  { name: 'Express.js', category: 'backend' },
+  { name: 'REST APIs', category: 'backend' },
+  { name: 'MQTT', category: 'backend' },
+  { name: 'PostgreSQL', category: 'backend' },
+  { name: 'MongoDB', category: 'backend' },
+  { name: 'React Native', category: 'mobile' },
+  { name: 'Flutter (training)', category: 'mobile' },
+  { name: 'Redux Toolkit', category: 'integrations' },
+  { name: 'RTK Query', category: 'integrations' },
+  { name: 'Zustand', category: 'integrations' },
+  { name: 'Firebase', category: 'integrations' },
+  { name: 'Paymob', category: 'integrations' },
+  { name: 'Authentication', category: 'integrations' },
+  { name: 'Third-party integrations', category: 'integrations' },
+  { name: 'Git', category: 'tools' },
+  { name: 'Agile', category: 'tools' },
+  { name: 'Android & iOS builds', category: 'tools' },
 ]
 
 export const socialLinks: SocialLink[] = [
@@ -26,8 +41,8 @@ export const socialLinks: SocialLink[] = [
 
 export const about = {
   name: 'Abdelrahman Aziz',
-  title: 'Full Stack Software Engineer',
-  bio: 'Passionate software engineer with expertise in building scalable applications across mobile, frontend, and backend technologies.',
+  title: 'Full-Stack Software Engineer',
+  bio: 'Full-Stack Software Engineer working across React, Node.js, and REST APIs, with React Native mobile development as a complementary specialization.',
   email: 'abdelrahmanaziz23@gmail.com',
   profileImage: '/images/profile/profile-640.webp',
 }
@@ -62,23 +77,23 @@ export const processSteps = [
 export const highlightCards = [
   {
     title: 'Mobile Engineering',
-    body: 'React Native & Flutter apps with polished UX, offline-aware flows, and store-ready builds.',
+    body: 'React Native customer and vendor apps using TypeScript, Redux Toolkit, RTK Query, REST APIs, authentication, and Paymob.',
     icon: '📱',
   },
   {
     title: 'Full-Stack Delivery',
-    body: 'Angular/React frontends paired with Node/Express services and pragmatic data modeling.',
+    body: 'Salla and Zid storefront customization with HTML, CSS, and JavaScript, alongside Node.js REST APIs, databases, authentication, and third-party integrations.',
     icon: '⚡',
   },
   {
-    title: 'Performance Mindset',
-    body: 'Skeleton states, lazy boundaries, and measurable improvements where users feel them.',
-    icon: '🎯',
+    title: 'Backend & Integrations',
+    body: 'Node.js backend work with database and authentication integrations, third-party services, and MQTT.',
+    icon: '🔌',
   },
   {
-    title: 'Collaboration',
-    body: 'Clear interfaces with design and product; PRs that tell a story and keep CI green.',
-    icon: '🤝',
+    title: 'Mobile Delivery',
+    body: 'React Native interface and navigation work, API integration, debugging, and Android/iOS deployment assistance.',
+    icon: '📦',
   },
 ] as const
 
@@ -88,29 +103,23 @@ export const highlightCards = [
  */
 export const milestones: ExperienceMilestone[] = [
   {
-    year: '2026/02 - Present',
-    title: 'Node.js Backend Developer – AMB Company',
+    year: '02/2026 – Present',
+    title: 'Full Stack Developer – AMB',
     detail:
-      'Developed scalable REST APIs and real-time systems using MQTT pub/sub architecture. Managed authentication, databases, and third-party integrations. Contributed to ProTek production app.',
+      'Customized Salla and Zid storefronts with HTML, CSS, and JavaScript. Worked on Node.js REST APIs and backend features, including databases, authentication, third-party integrations, and MQTT. Contributed to ProTek.',
   },
 
   {
-    year: '2026/01 – Present',
+    year: '01/2026 – 02/2026',
     title: 'React Native Developer (Freelance)',
     detail:
-      'Built scalable cross-platform e-commerce apps (Vendor & User) using React Native, TypeScript, RTK & RTK Query. Integrated Paymob payments, authentication, and REST APIs following MVVM architecture.',
+      'Built customer and vendor apps with React Native and TypeScript. Used Redux Toolkit and RTK Query, integrated REST APIs, authentication, and Paymob, and prepared Android and iOS builds.',
   },
 
   {
-    year: '2025/10 - 2026/01',
+    year: '10/2025 – 12/2025',
     title: 'React Native Intern – IKEN Technology',
     detail:
-      'Worked on production mobile apps using React Native. Implemented UI, navigation, Firebase integration, and state management (Redux / Zustand). Followed Agile workflows and Git collaboration practices.',
-  },
-  {
-    year: 'Education (2024/10 - 2025/06)',
-    title: 'Information Technology Institute (ITI) – Mobile Development (PTP)',
-    detail:
-      '9-month professional training program focused on cross-platform mobile application development using modern industry practices.',
+      'Worked on UI, navigation, API integration, Firebase, and state management. Assisted with debugging, performance optimization, and Android/iOS deployment; collaborated using Git and Agile practices.',
   },
 ]

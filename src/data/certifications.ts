@@ -9,20 +9,6 @@ import type { Certification } from '../types/certification'
  */
 export const certifications: Certification[] = [
   {
-    id: "iti-mobile-development-ptp",
-    title: "Mobile Development Diploma (PTP)",
-    issuer: "Information Technology Institute (ITI)",
-    issueDate: "2025/06",
-    certificateImage: "/images/certifications/iti.webp",
-  },
-  {
-    id: "iti-flutter-summer-training",
-    title: "Mobile Development using Flutter — Summer Training",
-    issuer: "Information Technology Institute (ITI)",
-    issueDate: "2022/09",
-    certificateImage: "/images/certifications/iti-summer.webp",
-  },
-  {
     id: "iken-certification",
     title: "IKEN Internship Certification",
     issuer: "IKEN Technology",

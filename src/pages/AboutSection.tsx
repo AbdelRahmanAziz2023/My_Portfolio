@@ -17,6 +17,7 @@ export const AboutSection: React.FC = () => {
     frontend: skills.filter((s) => s.category === 'frontend'),
     backend: skills.filter((s) => s.category === 'backend'),
     mobile: skills.filter((s) => s.category === 'mobile'),
+    integrations: skills.filter((s) => s.category === 'integrations'),
     tools: skills.filter((s) => s.category === 'tools'),
   }
 
@@ -27,7 +28,7 @@ export const AboutSection: React.FC = () => {
           <SectionTitle
             eyebrow="Profile"
             title="About & experience"
-            subtitle="Background, milestones, and the stack I reach for when building serious software."
+            subtitle="Experience across full-stack software development, with React Native as a complementary specialization."
           />
         </RevealOnScroll>
 
@@ -37,14 +38,12 @@ export const AboutSection: React.FC = () => {
               <Card elevation="floating">
                 <h3 className="heading-card mb-4 text-on-surface">Professional background</h3>
                 <p className="body-main mb-4">
-                  I&apos;m a full-stack software engineer with 2+ years of experience building scalable
-                  applications. My expertise spans mobile development, modern frontend frameworks, and
-                  backend services.
+                  I&apos;m a Full-Stack Software Engineer working on storefront customization, Node.js
+                  backends, REST APIs, and mobile applications.
                 </p>
                 <p className="body-main">
-                  I care about maintainable code, measurable UX, and clear collaboration across design and
-                  product. When I&apos;m not coding, I&apos;m exploring new tooling or refining systems that
-                  make teams faster.
+                  My experience includes React Native development, third-party integrations, and
+                  contributing to web and mobile project work.
                 </p>
               </Card>
             </RevealOnScroll>
@@ -54,10 +53,10 @@ export const AboutSection: React.FC = () => {
                 <h3 className="heading-card mb-4 text-on-surface">Experience highlights</h3>
                 <ul className="space-y-3">
                   {[
-                    'Led development of 2+ production applications',
-                    'Improved application performance with measurable UX impact',
-                    'Comfortable owning features from API to polished UI',
-                    'Clear interfaces with design and product; PRs that tell a story and keep CI green',
+                    'Customized Salla and Zid storefronts using HTML, CSS, and JavaScript',
+                    'Developed Node.js REST and backend features with database, authentication, third-party, and MQTT integrations',
+                    'Built React Native customer and vendor apps with Paymob payment integration',
+                    'Worked on mobile UI, navigation, API integration, debugging, and deployment assistance',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="mt-0.5 text-secondary" aria-hidden>
@@ -104,6 +103,7 @@ export const AboutSection: React.FC = () => {
                     ['Frontend', groupedSkills.frontend],
                     ['Backend', groupedSkills.backend],
                     ['Mobile', groupedSkills.mobile],
+                    ['State & integrations', groupedSkills.integrations],
                     ['Tools', groupedSkills.tools],
                   ] as const
                 ).map(([label, list]) => (

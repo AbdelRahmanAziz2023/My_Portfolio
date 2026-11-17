@@ -6,7 +6,9 @@ import { buttonClasses } from '../components/common/buttonStyles'
 import { about, skills } from '../data/portfolio'
 import { projects } from '../data/projects'
 
-const techStrip = skills.slice(0, 8).map((s) => s.name)
+const techStrip = ['React', 'TypeScript', 'Node.js', 'REST APIs', 'React Native', 'Redux Toolkit', 'RTK Query', 'MQTT']
+  .map((name) => skills.find((skill) => skill.name === name)?.name)
+  .filter((name): name is string => name !== undefined)
 
 export const HeroSection: React.FC = () => {
   return (
@@ -24,10 +26,10 @@ export const HeroSection: React.FC = () => {
       <div className="container-custom">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="space-y-8 lg:col-span-7">
-            {/* Availability / role eyebrow */}
+            {/* Role eyebrow */}
             <RevealOnScroll>
               <p className="badge-label text-secondary">
-                Available for freelance &amp; full-time opportunities
+                Full-Stack Software Engineer
               </p>
             </RevealOnScroll>
             
@@ -41,7 +43,7 @@ export const HeroSection: React.FC = () => {
             {/* Specialization */}
             <RevealOnScroll delayMs={120}>
               <p className="font-display text-xl font-semibold text-secondary sm:text-2xl">
-                Full Stack Software Engineer &amp; Mobile Developer 
+                React Native &amp; mobile development
               </p>
             </RevealOnScroll>
 
@@ -63,7 +65,6 @@ export const HeroSection: React.FC = () => {
 
             <RevealOnScroll delayMs={260}>
               <div className="flex flex-wrap gap-8 border-t border-outline-variant/40 pt-8">
-                <StatBlock value="2+" label="Years of experience" />
                 <StatBlock value={String(projects.length)} label="Projects in portfolio" />
               </div>
             </RevealOnScroll>

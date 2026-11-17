@@ -16,13 +16,12 @@ export const projects: Project[] = [
     subtitle:
       "Secure Online Examination & Real-Time Automated Proctoring Platform",
     description:
-      "A comprehensive full-stack examination platform (MERN) designed to safeguard academic integrity through real-time WebSocket proctoring, client-side event interception, and SHA-256 evidence hashing.",
+      "Full-stack examination platform using WebSockets for proctoring, browser event monitoring, and SHA-256 event hashing.",
 
     featured: true,
     category: "web",
 
     year: "2026",
-    duration: "3 Months",
     role: "Full-Stack Web Engineer",
 
     logo: "/images/projects/examify/examify-logo.svg",
@@ -44,17 +43,14 @@ export const projects: Project[] = [
     ],
 
     problem:
-      "Academic institutions struggle to prevent sophisticated online cheating methods like tab switching, unauthorized tools, or loss of window focus, while lacking tamper-proof digital evidence for post-exam review and adjudication.",
+      "Online exams need tools for monitoring browser events and reviewing recorded exam activity.",
 
     solution:
-      "ExamiFY provides a sandboxed examination environment connected via low-latency WebSockets to monitor student behavior, capture real-time violation evidence, hash logs via SHA-256 for cryptographic verification, and instantly alert proctors.",
-
-    impact:
-      "Delivered a reliable testing environment with high academic compliance, significantly reduced unauthorized attempt rates using a multi-tier strikes system, and provided detailed forensic audit reports for faculty review.",
+      "The platform combines an examination interface, WebSocket event monitoring, strike assignment, and SHA-256 event records.",
 
     challenges: [
-      "Maintaining stable WebSocket telemetry and heartbeat monitoring over Vercel Serverless Functions.",
-      "Resolving TypeScript path alias mappings (@/*) during build execution for production deployment.",
+      "WebSocket telemetry and heartbeat monitoring with Vercel Serverless Functions.",
+      "Resolving TypeScript path alias mappings (@/*) during builds.",
       "Implementing browser event traps to block keyboard shortcuts and detect multi-monitor setups.",
     ],
 
@@ -74,20 +70,6 @@ export const projects: Project[] = [
       // github: "https://github.com/your-username/examify"
     },
 
-    stats: [
-      {
-        label: "Academic Integrity Index",
-        value: "98.4%",
-      },
-      {
-        label: "Telemetry Latency",
-        value: "< 50ms",
-      },
-      {
-        label: "RTL & i18n Coverage",
-        value: "100%",
-      },
-    ],
   },
   {
     id: "link-land-archive",
@@ -96,7 +78,7 @@ export const projects: Project[] = [
     subtitle: "Land Archive & Document Management System",
 
     description:
-      "A private mobile application built for a real-estate and land documentation company, designed to help employees securely search, view, and access land-related records and documents.",
+      "Mobile application for searching land records and accessing related documents.",
 
     featured: true,
 
@@ -120,10 +102,10 @@ export const projects: Project[] = [
     ],
 
     problem:
-      "The company needed a centralized and secure way for employees to search and access land records and their related documents instead of relying on scattered files and manual lookup processes.",
+      "Land records and related documents can be searched and viewed through a mobile interface.",
 
     solution:
-      "Built a role-based mobile application with a Node.js backend and Supabase/PostgreSQL database, allowing administrators to manage users and land records while employees can search for land information and access the associated documents.",
+      "The mobile app uses a Node.js backend with Supabase/PostgreSQL, role-based access, land search, and document access.",
 
     challenges: [
       "Designing role-based navigation and access control for Admin and Employee users.",
@@ -200,13 +182,12 @@ export const projects: Project[] = [
     title: "SWNW E-Commerce Ecosystem",
     subtitle: "Dual-App Mobile E-Commerce Solution for Customers & Vendors",
     description:
-      "A complete mobile marketplace solution built with React Native and TypeScript, featuring a high-conversion customer shopping application integrated with Paymob, and a dedicated vendor store management mobile application.",
+      "Customer shopping and vendor store management apps built with React Native and TypeScript, with Paymob integration.",
 
     featured: true,
     category: "mobile",
 
     year: "2026",
-    duration: "1 Month",
     role: "Mobile Application Engineer",
 
     logo: "/images/projects/swnw/swnw-logo.webp",
@@ -223,18 +204,15 @@ export const projects: Project[] = [
     ],
 
     problem:
-      "Merchants need a seamless way to manage inventory and sales statistics on the go, while customers require a fast, intuitive mobile shopping experience with secure local payment options.",
+      "The two apps provide mobile shopping and vendor store management, including payment, product, and order workflows.",
 
     solution:
-      "Engineered a dual-app mobile ecosystem: a feature-packed customer marketplace app with Paymob payment integration, and a synchronized vendor app allowing real-time product CRUD management, store analytics, and order tracking.",
-
-    impact:
-      "Streamlined merchant operations by enabling mobile-first store management while providing end customers with a smooth checkout flow, real-time inventory updates, and instant digital payment capabilities.",
+      "The customer app includes shopping and Paymob payment flows; the vendor app includes product management and order tracking.",
 
     challenges: [
-      "Architecting a scalable, feature-based folder structure to share type definitions and RTK Query patterns across both applications.",
+      "Organizing shared type definitions and RTK Query patterns across both applications.",
       "Integrating Paymob payment gateway SDK smoothly with custom checkout state transitions in React Native.",
-      "Optimizing image uploading and client-side cache invalidation using RTK Query for vendor product updates.",
+      "Image uploads and RTK Query cache invalidation for vendor product updates.",
     ],
 
     features: [
@@ -271,20 +249,19 @@ export const projects: Project[] = [
     slug: "order-together",
     title: "Order Together - Food Ordering App",
     description:
-      "Cross-platform mobile food ordering application built with React Native and Expo. Features cart management, real-time order tracking, skeleton loading, secure session persistence, and receipt generation.",
+      "Food ordering application built with React Native and Expo, with cart management, order tracking, session persistence, and receipt generation.",
     featured: true,
     category: "mobile",
-    year: "2024",
+    year: "2025",
     role: "Mobile Engineer",
     logo: "/images/projects/order-together.webp",
     heroImage: "/images/projects/orderTogether/order-together-1.webp",
     technologies: ["React Native", "Expo", "TypeScript", ".NET", "SQL"],
     problem:
-      "Users needed a reliable group-ordering flow with clear state across sessions.",
+      "The app supports group ordering with cart state retained across sessions.",
+
     solution:
-      "Built a typed RN/Expo client with persisted cart and skeleton-first loading states.",
-    impact:
-      "Production-ready flows for ordering, tracking, and receipts with maintainable architecture.",
+      "React Native and Expo client with a persisted cart, loading states, order tracking, and receipt screens.",
     links: {
       github: "https://github.com/AbdelRahmanAziz2023/Order_Together",
     },
@@ -320,10 +297,10 @@ export const projects: Project[] = [
     slug: "soundjoy",
     title: "SoundJoy - E-Commerce Platform",
     description:
-      "Full-featured MEAN stack e-commerce platform for purchasing headphones. Features JWT authentication, Stripe payment integration, product comparison, order tracking, admin dashboard with analytics, and product management.",
+      "MEAN stack e-commerce platform for headphones, with JWT authentication, Stripe payment integration, product comparison, order tracking, an admin dashboard, and product management.",
     featured: false,
     category: "web",
-    year: "2023",
+    year: "2025",
     role: "Full-Stack Engineer",
     logo: "/images/projects/soundjoy.webp",
     heroImage: "/images/projects/soundjoy/soundjoy-4.webp",
@@ -336,11 +313,10 @@ export const projects: Project[] = [
       "Tailwind CSS",
     ],
     problem:
-      "Headphone storefront needed secure checkout and a scalable admin surface.",
+      "The project brings headphone shopping, checkout, order tracking, and product administration into one platform.",
+
     solution:
-      "MEAN stack with JWT, Stripe, and a Tailwind-powered storefront plus analytics dashboard.",
-    impact:
-      "End-to-end commerce: auth, payments, orders, and product management in one codebase.",
+      "MEAN stack implementation with JWT authentication, Stripe integration, a Tailwind CSS storefront, and an admin dashboard.",
     links: {
       live: "https://e-commerce-front-iti-vz36.vercel.app/",
       github: "https://github.com/AbdelRahmanAziz2023/E-commerce-Front-ITI",
@@ -369,10 +345,9 @@ export const projects: Project[] = [
     slug: "food-delivery",
     title: "Food Delivery App",
     description:
-      "Production-ready React Native food ordering application with complete authentication flow, restaurant browsing, cart management, Stripe payments, and real-time order tracking. Built with TypeScript, Redux Toolkit, Firebase, Firestore, and Reactotron debugging.",
+      "React Native food ordering application with authentication, restaurant browsing, cart management, Stripe payments, and order tracking. Built with TypeScript, Redux Toolkit, Firebase, Firestore, and Reactotron.",
     featured: false,
     category: "mobile",
-    year: "2024",
     role: "Mobile Engineer",
     logo: "/images/projects/food-delivery.webp",
     technologies: [
@@ -386,9 +361,7 @@ export const projects: Project[] = [
     problem:
       "Complex auth + payments + live order state on mobile with strong DX for debugging.",
     solution:
-      "RTK + Firebase/Firestore, Stripe SDK, and Reactotron for a shippable RN experience.",
-    impact:
-      "Full purchase journey with real-time updates and hardened state management.",
+      "React Native app using Redux Toolkit, Firebase/Firestore, Stripe SDK, and Reactotron.",
     links: {
       github: "https://github.com/AbdelRahmanAziz2023/food_delivery_app",
     },
@@ -398,19 +371,16 @@ export const projects: Project[] = [
     slug: "homehand",
     title: "HomeHand - Flutter Mobile App",
     description:
-      "Cross-platform mobile application built with Flutter. Demonstrates expertise in native mobile development with support for Android, iOS, web, Linux, macOS, and Windows platforms.",
+      "Cross-platform mobile application built with Flutter and Dart.",
     featured: false,
     category: "mobile",
-    year: "2023",
     role: "Mobile Engineer",
     logo: "/images/projects/homehand.webp",
     technologies: ["Flutter", "Dart", "Native Platforms"],
     problem:
-      "Deliver one codebase across mobile and desktop targets without sacrificing structure.",
+      "The project explores a Flutter application with shared code across supported platforms.",
     solution:
       "Flutter architecture with platform-aware modules and shared domain logic.",
-    impact:
-      "Single Dart codebase spanning six platforms with clear separation of concerns.",
     links: {
       github: "https://github.com/AbdelRahmanAziz2023/HomeHand",
     },

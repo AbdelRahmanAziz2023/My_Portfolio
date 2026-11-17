@@ -144,8 +144,8 @@ export const ContactSection: React.FC = () => {
         <RevealOnScroll>
           <SectionTitle
             eyebrow="Closing scene"
-            title="Let’s build the next release"
-            subtitle="Open for freelance, contract, and full-time opportunities. Drop a line — I respond quickly."
+            title="Get in touch"
+            subtitle="For questions about my experience or projects, contact me by email or social media."
           />
         </RevealOnScroll>
 
@@ -178,10 +178,9 @@ export const ContactSection: React.FC = () => {
                   </div>
                 </div>
                 <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                  <p className="font-display text-sm font-semibold text-primary">Availability</p>
+                  <p className="font-display text-sm font-semibold text-primary">Contact</p>
                   <p className="body-sm mt-1">
-                    Currently available for freelance projects and contract work. Prefer async-first
-                    collaboration with crisp milestones.
+                    For inquiries, please use the email address above or the contact form notice below.
                   </p>
                 </div>
               </div>
@@ -325,7 +324,7 @@ export const ContactSection: React.FC = () => {
                     role="status"
                     className="body-sm rounded-lg border border-secondary/30 bg-secondary/10 px-4 py-3 text-center text-on-surface"
                   >
-                    Message sent successfully. I’ll get back to you soon.
+                    Message sent successfully.
                   </p>
                 )}
 

@@ -1,7 +1,6 @@
 export interface Skill {
   name: string
-  category: 'frontend' | 'backend' | 'mobile' | 'tools'
-  level: 'beginner' | 'intermediate' | 'advanced' | 'expert'
+  category: 'frontend' | 'backend' | 'mobile' | 'integrations' | 'tools'
 }
 
 export interface SocialLink {

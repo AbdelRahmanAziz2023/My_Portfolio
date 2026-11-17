@@ -32,10 +32,10 @@ export interface SiteMeta {
 
 export const siteMeta: SiteMeta = {
   name: 'Abdelrahman Aziz',
-  role: 'React Native & Mobile Developer',
-  title: 'Abdelrahman Aziz | React Native & Mobile Developer',
+  role: 'Full-Stack Software Engineer',
+  title: 'Abdelrahman Aziz | Full-Stack Software Engineer',
   description:
-    'Portfolio of Abdelrahman Aziz — React Native and mobile developer building cross-platform apps with React Native, Flutter, and TypeScript, alongside full-stack work in React, Angular, Node.js, and Express.',
+    'Portfolio of Abdelrahman Aziz, Full-Stack Software Engineer working with React, Node.js, REST APIs, and React Native mobile development.',
   /**
    * Default social preview image — an existing file under /public.
    *
@@ -70,7 +70,7 @@ export const pageMeta: SitePagesMeta = {
   projects: {
     title: 'Projects',
     description:
-      'Mobile and web applications built with React Native, Flutter, Angular, and Node.js — each documented with a detailed case study.',
+      'Full-stack web and React Native mobile projects using technologies including React, Node.js, and TypeScript.',
   },
   education: {
     title: 'Education & Certifications',

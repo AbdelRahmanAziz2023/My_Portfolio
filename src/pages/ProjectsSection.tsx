@@ -20,7 +20,7 @@ export const ProjectsSection: React.FC = () => {
           <SectionTitle
             eyebrow="Selected work"
             title="Featured projects"
-            subtitle="Showcase of my recent work and accomplishments across platforms."
+            subtitle="Selected web and mobile projects."
           />
         </RevealOnScroll>
 
