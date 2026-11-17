@@ -33,8 +33,8 @@ export function Projects() {
 
   const filterButtonClasses = (active: boolean): string =>
     active
-      ? 'rounded-full border border-primary/50 bg-primary/15 px-4 py-2 text-sm font-medium text-primary shadow-[0_0_14px_rgba(207,188,255,0.12)] transition-all duration-300'
-      : 'rounded-full border border-outline-variant/40 bg-surface-container/60 px-4 py-2 text-sm font-medium text-on-surface-variant transition-all duration-300 hover:border-primary/35 hover:text-primary'
+      ? 'min-h-11 rounded-full border border-primary/50 bg-primary/15 px-4 py-2 text-sm font-medium text-primary shadow-[0_0_14px_rgba(207,188,255,0.12)] transition-all duration-300 sm:min-h-0'
+      : 'min-h-11 rounded-full border border-outline-variant/40 bg-surface-container/60 px-4 py-2 text-sm font-medium text-on-surface-variant transition-all duration-300 hover:border-primary/35 hover:text-primary sm:min-h-0'
 
   return (
     <section className="section-padding scroll-mt-24 bg-surface">

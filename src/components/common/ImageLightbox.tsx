@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { useModalDialog } from './useModalDialog'
 
 interface ImageLightboxProps {
@@ -24,7 +25,7 @@ export function ImageLightbox({ src, alt, caption, closeLabel, onClose }: ImageL
   const dialogRef = useRef<HTMLDivElement>(null)
   useModalDialog(dialogRef, onClose)
 
-  return (
+  return createPortal(
     <div
       ref={dialogRef}
       role="dialog"
@@ -57,6 +58,7 @@ export function ImageLightbox({ src, alt, caption, closeLabel, onClose }: ImageL
       >
         <span aria-hidden>×</span>
       </button>
-    </div>
+    </div>,
+    document.body,
   )
 }

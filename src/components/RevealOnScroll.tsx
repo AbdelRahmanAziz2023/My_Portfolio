@@ -15,11 +15,17 @@ export const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
   delayMs = 0,
 }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(() => {
+    const reducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches === true
+
+    return typeof IntersectionObserver === 'undefined' || reducedMotion
+  })
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || visible) return
 
     let timeoutId: number | undefined
 
@@ -40,7 +46,7 @@ export const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
       observer.disconnect()
       if (timeoutId) window.clearTimeout(timeoutId)
     }
-  }, [delayMs])
+  }, [delayMs, visible])
 
   return (
     <div
