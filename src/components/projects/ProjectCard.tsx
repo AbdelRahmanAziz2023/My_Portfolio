@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import { buttonClasses } from '../common/buttonStyles'
 import { TagPill } from '../TagPill'
+import { getProjectPreview } from '../../data/projects'
 import type { Project } from '../../types/project'
 
 interface ProjectCardProps {
@@ -10,39 +11,43 @@ interface ProjectCardProps {
 /**
  * Project card for the dedicated /projects page grid.
  *
- * - Internal navigation ("View Project") uses the router.
+ * - Internal navigation ("View Case Study") uses the router.
  * - External links (Live Demo / GitHub) render only when the URL exists.
- * - Optional fields (logo, category, year) are omitted when missing —
- *   no empty placeholders.
+ * - Missing screenshots use an explicit placeholder, never a logo as evidence.
  */
 export function ProjectCard({ project }: ProjectCardProps) {
+  const preview = getProjectPreview(project)
+  const visibleTechnologies = project.technologies.slice(0, 5)
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-container/90 transition-[transform,border-color,box-shadow] duration-300 ease-cinematic hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-glow">
-      {/* Logo / image */}
-      <div className="relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br from-primary-container/20 via-surface-container-high to-secondary/10 p-6">
-        <div
-          className="pointer-events-none absolute inset-0 opacity-30"
-          aria-hidden
-          style={{
-            background:
-              'radial-gradient(circle at 20% 20%, rgba(207,188,255,0.22), transparent 55%), radial-gradient(circle at 80% 80%, rgba(34,211,238,0.14), transparent 50%)',
-          }}
-        />
-
-        {project.logo ? (
+      <figure className="overflow-hidden border-b border-outline-variant/30 bg-surface-low">
+        {preview ? (
           <img
-            src={project.logo}
-            alt={`${project.title} logo`}
+            src={preview.src}
+            alt={preview.alt}
             loading="lazy"
             decoding="async"
-            className="relative z-10 max-h-28 w-auto max-w-full object-contain drop-shadow-[0_8px_25px_rgba(0,0,0,0.35)] transition-transform duration-500 group-hover:scale-105"
+            className={`h-52 w-full object-contain transition-transform duration-500 group-hover:scale-[1.02] ${
+              preview.orientation === 'portrait' ? 'bg-surface-container' : ''
+            }`}
           />
         ) : (
-          <span aria-hidden className="relative z-10 font-display text-5xl text-primary/30">
-            ◇
-          </span>
+          <div className="flex h-52 flex-col items-center justify-center gap-3 px-5">
+            {project.logo && (
+              <img
+                src={project.logo}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                className="h-10 w-10 object-contain opacity-75"
+              />
+            )}
+            <p className="badge-label text-on-surface-variant">Screenshot placeholder</p>
+          </div>
         )}
-      </div>
+      </figure>
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
@@ -65,16 +70,25 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <h3 className="heading-card text-on-surface">{project.title}</h3>
 
+        {project.role && (
+          <p className="badge-label mt-2 text-secondary">Role: {project.role}</p>
+        )}
+
         <p className="body-sm mb-5 mt-2 flex-1 text-pretty text-on-surface-variant">
-          {project.description}
+          {project.problem || project.description}
         </p>
 
         <div className="mb-5 flex flex-wrap gap-2">
-          {project.technologies.map((tech) => (
+          {visibleTechnologies.map((tech) => (
             <TagPill key={tech} variant="primary">
               {tech}
             </TagPill>
           ))}
+          {project.technologies.length > visibleTechnologies.length && (
+            <TagPill variant="secondary">
+              +{project.technologies.length - visibleTechnologies.length}
+            </TagPill>
+          )}
         </div>
 
         {/* Actions — internal via router, external via real <a> elements */}
@@ -83,7 +97,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             to={`/projects/${project.slug}`}
             className={buttonClasses('primary', 'sm')}
           >
-            View Project
+            View Case Study
           </Link>
 
           {project.links?.live && (

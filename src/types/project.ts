@@ -1,9 +1,16 @@
-/** Gallery/screen imagery for the Project Details page (not yet designed). */
+/** Real project screenshots used in cards and the project detail gallery. */
 export interface ProjectImage {
   src: string
   alt: string
   caption?: string
   type?: 'hero' | 'gallery' | 'screen'
+  orientation?: 'portrait' | 'landscape'
+}
+
+export interface ProjectTechnicalDecision {
+  decision: string
+  rationale?: string
+  tradeOff?: string
 }
 
 /**
@@ -30,18 +37,23 @@ export interface Project {
   role?: string
 
   logo?: string
-  heroImage?: string
 
   technologies: string[]
 
   problem?: string
+  goals?: string[]
   solution?: string
   impact?: string
+  responsibilities?: string[]
+  architecture?: string
+  technicalDecisions?: ProjectTechnicalDecision[]
 
   challenges?: string[]
   features?: string[]
 
   images?: ProjectImage[]
+  relatedProjectSlugs?: string[]
+  availabilityNote?: string
 
   links?: {
     live?: string

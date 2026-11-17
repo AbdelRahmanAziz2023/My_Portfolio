@@ -9,7 +9,7 @@ interface ProjectGalleryProps {
 /**
  * Responsive, lazy-loaded project gallery sharing the site-wide lightbox.
  *
- * - 'hero' images render full-width and load eagerly (critical visual).
+ * - 'hero' images appear first and load eagerly (critical visual).
  * - 'gallery'/'screen' images lazy-load in a responsive grid.
  * - Captions render only when provided.
  * - Aspect-ratio containers preserve layout and prevent shift.
@@ -25,20 +25,31 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
       alt={image.alt}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
-      className="h-full w-full object-cover"
+      className="h-full w-full object-contain"
     />
   )
 
-  const galleryButton = (image: ProjectImage, index: number, aspect: string, eager: boolean) => (
-    <button
-      type="button"
-      onClick={() => setActiveIndex(index)}
-      aria-label={`View larger: ${image.alt}`}
-      className="block w-full overflow-hidden rounded-xl border border-outline-variant/40 transition-all duration-300 hover:border-primary/35"
-    >
-      <span className={`block ${aspect}`}>{renderImage(image, eager)}</span>
-    </button>
-  )
+  const galleryButton = (image: ProjectImage, index: number, eager: boolean) => {
+    const aspect =
+      image.orientation === 'portrait'
+        ? 'aspect-[3/4] mx-auto max-w-sm'
+        : image.type === 'hero'
+          ? 'aspect-[16/9]'
+          : 'aspect-[4/3]'
+
+    return (
+      <button
+        type="button"
+        onClick={() => setActiveIndex(index)}
+        aria-label={`View larger: ${image.alt}`}
+        className={`block w-full overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-low transition-all duration-300 hover:border-primary/35 ${
+          image.orientation === 'portrait' ? 'mx-auto max-w-sm' : ''
+        }`}
+      >
+        <span className={`block ${aspect}`}>{renderImage(image, eager)}</span>
+      </button>
+    )
+  }
 
   return (
     <>
@@ -48,7 +59,7 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
           .filter(({ image }) => image.type === 'hero')
           .map(({ image, index }) => (
             <figure key={`${image.src}-${index}`}>
-              {galleryButton(image, index, 'aspect-[16/9]', true)}
+              {galleryButton(image, index, true)}
               {image.caption && (
                 <figcaption className="body-sm mt-2 text-on-surface-variant">
                   {image.caption}
@@ -63,7 +74,7 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
             .filter(({ image }) => image.type !== 'hero')
             .map(({ image, index }) => (
               <figure key={`${image.src}-${index}`}>
-                {galleryButton(image, index, 'aspect-[4/3]', false)}
+                {galleryButton(image, index, false)}
                 {image.caption && (
                   <figcaption className="body-sm mt-2 text-on-surface-variant">
                     {image.caption}

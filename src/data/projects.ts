@@ -1,8 +1,8 @@
-import type { Project } from "../types/project";
+import type { Project, ProjectImage } from "../types/project";
 
 /**
  * Authoritative project dataset — the single source of truth consumed by
- * every project-related UI (home carousel, grid, /projects, /projects/:slug).
+ * every project-related UI (homepage, project listing, /projects/:slug).
  *
  * Content is migrated from the original portfolio data; missing information
  * stays optional. Ordering matches the original data.
@@ -18,14 +18,13 @@ export const projects: Project[] = [
     description:
       "Full-stack examination platform using WebSockets for proctoring, browser event monitoring, and SHA-256 event hashing.",
 
-    featured: true,
+    featured: false,
     category: "web",
 
     year: "2026",
     role: "Full-Stack Web Engineer",
 
     logo: "/images/projects/examify/examify-logo.svg",
-    heroImage: "/images/projects/examify/examify-logo.svg",
 
     technologies: [
       "React 18",
@@ -66,7 +65,7 @@ export const projects: Project[] = [
     images: [],
 
     links: {
-      live: "https://examify.vercel.app",
+      live: "https://exami-fy.vercel.app",
       // github: "https://github.com/your-username/examify"
     },
 
@@ -89,8 +88,6 @@ export const projects: Project[] = [
     role: "React Native Developer",
 
     logo: "/images/projects/link/link-icon.webp",
-
-    // heroImage: "/images/projects/link/login.webp",
 
     technologies: [
       "React Native",
@@ -132,23 +129,29 @@ export const projects: Project[] = [
     images: [
       {
         src: "/images/projects/link/login.webp",
-        alt: "لينك login screen",
+        alt: "Link login screen",
+        orientation: "portrait",
       },
       {
         src: "/images/projects/link/land-list.webp",
-        alt: "لينك lands screen",
+        alt: "Link land records list screen",
+        type: "hero",
+        orientation: "portrait",
       },
       {
         src: "/images/projects/link/land-details.webp",
-        alt: "لينك land details screen",
+        alt: "Link land record details screen",
+        orientation: "portrait",
       },
       {
         src: "/images/projects/link/land-search.webp",
-        alt: "لينك land search screen",
+        alt: "Link land record search screen",
+        orientation: "portrait",
       },
       {
         src: "/images/projects/link/admin-dash.webp",
-        alt: "لينك admin dashboard screen",
+        alt: "Link administrator dashboard screen",
+        orientation: "portrait",
       },
     ],
 
@@ -156,24 +159,6 @@ export const projects: Project[] = [
       // github: "https://github.com/AbdelRahmanAziz2023",
     },
 
-    stats: [
-      {
-        label: "Platform",
-        value: "Mobile",
-      },
-      {
-        label: "Frontend",
-        value: "React Native",
-      },
-      {
-        label: "Backend",
-        value: "Node.js",
-      },
-      {
-        label: "Database",
-        value: "PostgreSQL",
-      },
-    ],
   },
   {
     id: "swnw-ecommerce-platform",
@@ -184,14 +169,13 @@ export const projects: Project[] = [
     description:
       "Customer shopping and vendor store management apps built with React Native and TypeScript, with Paymob integration.",
 
-    featured: true,
+    featured: false,
     category: "mobile",
 
     year: "2026",
     role: "Mobile Application Engineer",
 
     logo: "/images/projects/swnw/swnw-logo.webp",
-    heroImage: "/images/projects/swnw/swnw-logo.webp",
 
     technologies: [
       "React Native",
@@ -255,7 +239,6 @@ export const projects: Project[] = [
     year: "2025",
     role: "Mobile Engineer",
     logo: "/images/projects/order-together.webp",
-    heroImage: "/images/projects/orderTogether/order-together-1.webp",
     technologies: ["React Native", "Expo", "TypeScript", ".NET", "SQL"],
     problem:
       "The app supports group ordering with cart state retained across sessions.",
@@ -267,28 +250,15 @@ export const projects: Project[] = [
     },
     images: [
       {
-        src: "/images/projects/orderTogether/order-together-1.webp",
-        alt: "Order Together home and restaurant browsing screen",
-      },
-      {
         src: "/images/projects/orderTogether/order-together-2.webp",
         alt: "Order Together restaurant menu screen",
-      },
-      {
-        src: "/images/projects/orderTogether/order-together-3.webp",
-        alt: "Order Together cart screen",
+        type: "hero",
+        orientation: "landscape",
       },
       {
         src: "/images/projects/orderTogether/order-together-4.webp",
-        alt: "Order Together checkout and payment screen",
-      },
-      {
-        src: "/images/projects/orderTogether/order-together-5.webp",
-        alt: "Order Together order tracking screen",
-      },
-      {
-        src: "/images/projects/orderTogether/order-together-6.webp",
-        alt: "Order Together order receipt screen",
+        alt: "Order Together menu and item customization preview",
+        orientation: "landscape",
       },
     ],
   },
@@ -298,12 +268,11 @@ export const projects: Project[] = [
     title: "SoundJoy - E-Commerce Platform",
     description:
       "MEAN stack e-commerce platform for headphones, with JWT authentication, Stripe payment integration, product comparison, order tracking, an admin dashboard, and product management.",
-    featured: false,
+    featured: true,
     category: "web",
     year: "2025",
     role: "Full-Stack Engineer",
     logo: "/images/projects/soundjoy.webp",
-    heroImage: "/images/projects/soundjoy/soundjoy-4.webp",
     technologies: [
       "Angular",
       "Node.js",
@@ -325,18 +294,23 @@ export const projects: Project[] = [
       {
         src: "/images/projects/soundjoy/soundjoy-4.webp",
         alt: "SoundJoy storefront home page",
+        type: "hero",
+        orientation: "landscape",
       },
       {
         src: "/images/projects/soundjoy/soundjoy-5.webp",
         alt: "SoundJoy product listing page",
+        orientation: "landscape",
       },
       {
         src: "/images/projects/soundjoy/soundjoy-6.webp",
         alt: "SoundJoy product details page",
+        orientation: "landscape",
       },
       {
         src: "/images/projects/soundjoy/soundjoy-7.webp",
         alt: "SoundJoy cart and checkout page",
+        orientation: "landscape",
       },
     ],
   },
@@ -371,16 +345,12 @@ export const projects: Project[] = [
     slug: "homehand",
     title: "HomeHand - Flutter Mobile App",
     description:
-      "Cross-platform mobile application built with Flutter and Dart.",
+      "Flutter mobile application.",
     featured: false,
     category: "mobile",
     role: "Mobile Engineer",
     logo: "/images/projects/homehand.webp",
-    technologies: ["Flutter", "Dart", "Native Platforms"],
-    problem:
-      "The project explores a Flutter application with shared code across supported platforms.",
-    solution:
-      "Flutter architecture with platform-aware modules and shared domain logic.",
+    technologies: ["Flutter", "Dart"],
     links: {
       github: "https://github.com/AbdelRahmanAziz2023/HomeHand",
     },
@@ -391,9 +361,22 @@ export const projects: Project[] = [
 export const getFeaturedProjects = (): Project[] =>
   projects.filter((p) => p.featured);
 
+/** First real project image used for cards and case-study previews. */
+export const getProjectPreview = (project: Project): ProjectImage | undefined =>
+  project.images?.find((image) => image.type === "hero") ?? project.images?.[0];
+
 /** Lookup by the stable hand-assigned slug used by /projects/:slug. */
 export const getProjectBySlug = (slug: string): Project | undefined =>
   projects.find((p) => p.slug === slug);
+
+/** Related projects resolved from the slugs declared in the project data. */
+export const getRelatedProjects = (project: Project): Project[] =>
+  (project.relatedProjectSlugs ?? [])
+    .map((slug) => getProjectBySlug(slug))
+    .filter(
+      (related): related is Project =>
+        related !== undefined && related.id !== project.id,
+    );
 
 /** Filter by category (e.g. 'mobile', 'web'), in dataset order. */
 export const getProjectsByCategory = (category: string): Project[] =>
