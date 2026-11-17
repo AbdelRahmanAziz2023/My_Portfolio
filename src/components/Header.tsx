@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router'
-import { about } from '../data/portfolio'
+import { about, resumeUrl } from '../data/portfolio'
 
 const cvButtonClass =
   'inline-flex items-center justify-center rounded-xl border border-white/10 bg-gradient-to-br from-primary/90 via-primary-container to-[#5a4bb7] px-4 py-2 font-sans text-sm font-semibold text-white shadow-sm transition-all duration-300 ease-out hover:scale-[1.03] hover:border-white/20 hover:shadow-[0_8px_24px_rgba(0,0,0,0.25)] active:scale-[0.98] backdrop-blur-md'
   
-const CV_PATH = '/assets/Abdelrahman Aziz CV.pdf'
-
 interface HeaderProps {
   name?: string
 }
@@ -15,7 +13,9 @@ const navLinks = [
   { label: 'Home', href: '/' },
   { label: 'Projects', href: '/projects' },
   { label: 'Education', href: '/education' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Expertise', href: '/#expertise' },
+  { label: 'About', href: '/#about' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export const Header: React.FC<HeaderProps> = ({ name }) => {
@@ -97,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
         </nav>
 
         <div className="hidden lg:block">
-          <a href={CV_PATH} download target="_blank" rel="noopener noreferrer" className={`no-underline ${cvButtonClass}`}>
+          <a href={resumeUrl} download className={`no-underline ${cvButtonClass}`}>
             Download CV
           </a>
         </div>
@@ -160,10 +160,8 @@ export const Header: React.FC<HeaderProps> = ({ name }) => {
               ),
             )}
             <a
-              href={CV_PATH}
+              href={resumeUrl}
               download
-              target="_blank"
-              rel="noopener noreferrer"
               className={`mt-2 w-full text-center no-underline ${cvButtonClass} py-3`}
             >
               Download CV

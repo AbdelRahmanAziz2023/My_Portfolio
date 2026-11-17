@@ -42,10 +42,12 @@ export const socialLinks: SocialLink[] = [
 export const about = {
   name: 'Abdelrahman Aziz',
   title: 'Full-Stack Software Engineer',
-  bio: 'Full-Stack Software Engineer working across React, Node.js, and REST APIs, with React Native mobile development as a complementary specialization.',
+  bio: 'I work across React interfaces, Node.js services, and REST APIs, with React Native mobile development as a complementary specialization.',
   email: 'abdelrahmanaziz23@gmail.com',
   profileImage: '/images/profile/profile-640.webp',
 }
+
+export const resumeUrl = '/assets/Abdelrahman Aziz CV.pdf'
 
 /** Placeholder-friendly logos row — swap `imageUrl` when you have assets */
 export const trustedLogos: TrustedLogo[] = [

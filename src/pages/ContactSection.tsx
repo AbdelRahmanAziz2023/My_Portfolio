@@ -3,6 +3,7 @@ import { Button } from '../components/Button'
 import { Card } from '../components/Card'
 import { RevealOnScroll } from '../components/RevealOnScroll'
 import { SectionTitle } from '../components/SectionTitle'
+import { buttonClasses } from '../components/common/buttonStyles'
 import { about, socialLinks } from '../data/portfolio'
 import {
   isContactFormConfigured,
@@ -26,6 +27,7 @@ const SUBMIT_ERROR_COPY: Record<ContactErrorReason, string> = {
 }
 
 export const ContactSection: React.FC = () => {
+  const contactFormConfigured = isContactFormConfigured()
   const [formData, setFormData] = useState<ContactFormData>(EMPTY_FORM)
   const [errors, setErrors] = useState<ContactFormErrors>({})
   const [status, setStatus] = useState<ContactStatus>('idle')
@@ -139,20 +141,20 @@ export const ContactSection: React.FC = () => {
   const invalidInputClass = 'border-error/60 focus:border-error focus:ring-error/35'
 
   return (
-    <section id="contact" className="section-padding scroll-mt-24 bg-surface">
+    <section id="contact" className="section-padding scroll-mt-24 bg-surface-container/30">
       <div className="container-custom">
         <RevealOnScroll>
           <SectionTitle
-            eyebrow="Closing scene"
+            eyebrow="Contact"
             title="Get in touch"
-            subtitle="For questions about my experience or projects, contact me by email or social media."
+            subtitle="For full-stack opportunities or web and mobile project inquiries, email is the most direct way to reach me."
           />
         </RevealOnScroll>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <RevealOnScroll delayMs={60}>
             <Card elevation="floating" className="h-full">
-              <h3 className="heading-card mb-6 text-on-surface">Contact</h3>
+              <h3 className="heading-card mb-6 text-on-surface">Ways to connect</h3>
               <div className="space-y-5">
                 <div>
                   <p className="badge-label mb-1 text-on-surface-variant">Email</p>
@@ -163,51 +165,39 @@ export const ContactSection: React.FC = () => {
                 <div>
                   <p className="badge-label mb-3 text-on-surface-variant">Social</p>
                   <div className="flex flex-wrap gap-3">
-                    {socialLinks.map((link) => (
-                      <a
-                        key={link.platform}
-                        href={link.url}
-                        target={link.url.startsWith('mailto:') ? undefined : '_blank'}
-                        rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
-                        className="flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant/50 text-on-surface-variant transition-all hover:border-secondary/60 hover:text-secondary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-                        title={link.platform}
-                      >
-                        {renderIcon(link.platform)}
-                      </a>
-                    ))}
+                    {socialLinks
+                      .filter((link) => link.platform !== 'Email')
+                      .map((link) => (
+                        <a
+                          key={link.platform}
+                          href={link.url}
+                          target={link.url.startsWith('mailto:') ? undefined : '_blank'}
+                          rel={link.url.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+                          aria-label={link.platform}
+                          className="flex h-11 w-11 items-center justify-center rounded-full border border-outline-variant/50 text-on-surface-variant transition-all hover:border-secondary/60 hover:text-secondary hover:shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                          title={link.platform}
+                        >
+                          {renderIcon(link.platform)}
+                        </a>
+                      ))}
                   </div>
                 </div>
                 <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                  <p className="font-display text-sm font-semibold text-primary">Contact</p>
+                  <p className="font-display text-sm font-semibold text-primary">
+                    Professional inquiries
+                  </p>
                   <p className="body-sm mt-1">
-                    For inquiries, please use the email address above or the contact form notice below.
+                    Email me about full-stack roles or web and mobile project work.
                   </p>
                 </div>
               </div>
             </Card>
           </RevealOnScroll>
 
-          <RevealOnScroll delayMs={120}>
-            <Card elevation="interactive">
+          {contactFormConfigured ? (
+            <RevealOnScroll delayMs={120}>
+              <Card elevation="interactive">
               <h3 className="heading-card mb-6 text-on-surface">Send a message</h3>
-              {/*
-                Honest, up-front notice: with no endpoint configured the form
-                cannot deliver anything, so the visitor is pointed to the direct
-                email address before spending time typing a message.
-              */}
-              {!isContactFormConfigured() && (
-                <p className="body-sm mb-5 rounded-lg border border-outline-variant/40 bg-surface-low/60 px-4 py-3 text-on-surface-variant">
-                  This form is not connected to a sending service yet, so it cannot deliver
-                  messages. Please email me at{' '}
-                  <a
-                    href={`mailto:${about.email}`}
-                    className="font-medium text-primary underline underline-offset-2 hover:text-secondary"
-                  >
-                    {about.email}
-                  </a>{' '}
-                  instead.
-                </p>
-              )}
               {/*
                 noValidate routes validation through the code in
                 `utils/contactValidation.ts` so every error is announced by the
@@ -344,8 +334,25 @@ export const ContactSection: React.FC = () => {
                   </div>
                 )}
               </form>
-            </Card>
-          </RevealOnScroll>
+              </Card>
+            </RevealOnScroll>
+          ) : (
+            <RevealOnScroll delayMs={120}>
+              <Card elevation="interactive" className="flex h-full flex-col justify-center">
+                <p className="badge-label mb-3 text-secondary">Start a conversation</p>
+                <h3 className="heading-card text-on-surface">Prefer email?</h3>
+                <p className="body-main mt-4 max-w-md text-pretty">
+                  Contact me directly about full-stack roles or web and mobile project inquiries.
+                </p>
+                <a
+                  href={`mailto:${about.email}`}
+                  className={`${buttonClasses('primary', 'md')} mt-6 w-fit`}
+                >
+                  Email me
+                </a>
+              </Card>
+            </RevealOnScroll>
+          )}
         </div>
       </div>
     </section>

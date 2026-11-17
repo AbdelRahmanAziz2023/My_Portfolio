@@ -1,12 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { RevealOnScroll } from '../components/RevealOnScroll'
-import { StatBlock } from '../components/StatBlock'
 import { buttonClasses } from '../components/common/buttonStyles'
-import { about, skills } from '../data/portfolio'
-import { projects } from '../data/projects'
+import { about, resumeUrl, skills } from '../data/portfolio'
 
-const techStrip = ['React', 'TypeScript', 'Node.js', 'REST APIs', 'React Native', 'Redux Toolkit', 'RTK Query', 'MQTT']
+const techStrip = ['React', 'TypeScript', 'Node.js', 'REST APIs', 'React Native']
   .map((name) => skills.find((skill) => skill.name === name)?.name)
   .filter((name): name is string => name !== undefined)
 
@@ -25,75 +23,59 @@ export const HeroSection: React.FC = () => {
 
       <div className="container-custom">
         <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="space-y-8 lg:col-span-7">
-            {/* Role eyebrow */}
+          <div className="space-y-6 lg:col-span-7">
             <RevealOnScroll>
-              <p className="badge-label text-secondary">
-                Full-Stack Software Engineer
-              </p>
+              <p className="badge-label text-secondary">{about.name}</p>
             </RevealOnScroll>
-            
+
             <RevealOnScroll delayMs={60}>
-              <h1 className="heading-hero text-on-surface">
-                Hi, I&apos;m{' '}
-                <span className="gradient-text block sm:inline">{about.name}</span>
+              <h1 className="heading-hero max-w-3xl text-on-surface">
+                Full-Stack <span className="gradient-text">Software Engineer</span>
               </h1>
             </RevealOnScroll>
 
-            {/* Specialization */}
             <RevealOnScroll delayMs={120}>
-              <p className="font-display text-xl font-semibold text-secondary sm:text-2xl">
-                React Native &amp; mobile development
+              <p className="font-display text-lg font-semibold text-secondary sm:text-xl">
+                Web applications, backend APIs, and mobile product work
               </p>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={180}>
+            <RevealOnScroll delayMs={160}>
               <p className="body-main max-w-xl text-pretty">{about.bio}</p>
             </RevealOnScroll>
 
-            {/* CTAs — router navigation + semantic in-page anchor */}
-            <RevealOnScroll delayMs={220}>
+            <RevealOnScroll delayMs={200}>
               <div className="flex flex-wrap gap-4 pt-2">
                 <Link to="/projects" className={buttonClasses('primary', 'lg')}>
-                  View Projects
+                  Explore Projects
                 </Link>
-                <a href="#contact" className={buttonClasses('outline', 'lg')}>
+                <a href="#contact" className={buttonClasses('secondary', 'lg')}>
                   Contact Me
+                </a>
+                <a href={resumeUrl} download className={buttonClasses('outline', 'lg')}>
+                  Download CV
                 </a>
               </div>
             </RevealOnScroll>
 
-            <RevealOnScroll delayMs={260}>
-              <div className="flex flex-wrap gap-8 border-t border-outline-variant/40 pt-8">
-                <StatBlock value={String(projects.length)} label="Projects in portfolio" />
-              </div>
-            </RevealOnScroll>
-
-            <RevealOnScroll delayMs={300}>
-              <div className="rounded-xl border border-outline-variant/30 bg-surface-container/40 px-4 py-3 backdrop-blur-sm">
-                <p className="badge-label mb-2 text-on-surface-variant">
-                  Stack focus
-                </p>
-
-                <div className="flex flex-wrap gap-2">
-                  {techStrip.map((name) => (
-                    <span
-                      key={name}
-                      className="rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs font-medium text-primary"
-                    >
+            <RevealOnScroll delayMs={240}>
+              <ul
+                aria-label="Core technologies"
+                className="flex list-none flex-wrap gap-2 p-0 pt-2"
+              >
+                {techStrip.map((name) => (
+                  <li key={name}>
+                    <span className="rounded-md border border-primary/20 bg-primary/5 px-2.5 py-1 text-xs font-medium text-primary">
                       {name}
                     </span>
-                  ))}
-                </div>
-              </div>
+                  </li>
+                ))}
+              </ul>
             </RevealOnScroll>
           </div>
 
-          {/* PROFILE IMAGE (NO GLOW) */}
           <RevealOnScroll delayMs={100} className="relative flex justify-center lg:col-span-5">
             <div className="relative">
-              
-              {/* subtle background ring */}
               <div
                 className="absolute inset-0 -m-4 rounded-full bg-gradient-to-tr from-primary/10 to-secondary/10 blur-2xl opacity-60"
                 aria-hidden
@@ -106,7 +88,7 @@ export const HeroSection: React.FC = () => {
                       src={about.profileImage}
                       srcSet="/images/profile/profile-320.webp 320w, /images/profile/profile-640.webp 640w"
                       sizes="(min-width: 768px) 320px, (min-width: 640px) 288px, 224px"
-                      alt={`${about.name} profile`}
+                      alt={`Portrait of ${about.name}`}
                       width={640}
                       height={960}
                       loading="eager"

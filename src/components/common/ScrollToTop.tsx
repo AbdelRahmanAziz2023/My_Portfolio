@@ -25,18 +25,22 @@ export function ScrollToTop() {
       return
     }
 
-    const main = document.getElementById('main')
+    const frameId = window.requestAnimationFrame(() => {
+      const main = document.getElementById('main')
 
-    if (hash) {
-      const target = document.getElementById(hash.slice(1))
-      if (target) {
-        target.scrollIntoView({ block: 'start' })
-        return
+      if (hash) {
+        const target = document.getElementById(hash.slice(1))
+        if (target) {
+          target.scrollIntoView({ block: 'start', behavior: 'instant' })
+          return
+        }
       }
-    }
 
-    window.scrollTo(0, 0)
-    main?.focus({ preventScroll: true })
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      main?.focus({ preventScroll: true })
+    })
+
+    return () => window.cancelAnimationFrame(frameId)
   }, [pathname, hash])
 
   return null

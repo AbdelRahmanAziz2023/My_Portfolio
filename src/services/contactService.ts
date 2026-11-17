@@ -23,8 +23,8 @@ export type ContactSubmitOutcome = { ok: true } | { ok: false; reason: ContactEr
 const ENDPOINT = (import.meta.env.VITE_CONTACT_FORM_ENDPOINT ?? '').trim()
 
 /**
- * Whether a real sending service is configured. The form stays fully usable
- * when this is false, but it reports honestly instead of faking success.
+ * Whether a real sending service is configured. The homepage only displays
+ * the form when this is true.
  */
 export const isContactFormConfigured = (): boolean => ENDPOINT.length > 0
 
