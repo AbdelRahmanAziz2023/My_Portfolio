@@ -1,7 +1,6 @@
 import { Link } from 'react-router'
 import { getRelatedProjects } from '../../data/projects'
 import type { Project } from '../../types/project'
-import { ProjectPlaceholder } from './ProjectPlaceholder'
 
 interface RelatedProjectsProps {
   project: Project
@@ -11,7 +10,7 @@ export function RelatedProjects({ project }: RelatedProjectsProps) {
   const relatedProjects = getRelatedProjects(project)
 
   if (relatedProjects.length === 0) {
-    return <ProjectPlaceholder label="Related projects" />
+    return null
   }
 
   return (

@@ -8,7 +8,6 @@ import { ProjectHero } from '../components/projects/ProjectHero'
 import { ProjectLinks } from '../components/projects/ProjectLinks'
 import { ProjectNavigation } from '../components/projects/ProjectNavigation'
 import { ProjectOverview } from '../components/projects/ProjectOverview'
-import { ProjectPlaceholder } from '../components/projects/ProjectPlaceholder'
 import { ProjectSection } from '../components/projects/ProjectSection'
 import { ProjectTechStack } from '../components/projects/ProjectTechStack'
 import { RelatedProjects } from '../components/projects/RelatedProjects'
@@ -17,6 +16,7 @@ import {
   getPreviousProject,
   getProjectPreview,
   getProjectBySlug,
+  getRelatedProjects,
 } from '../data/projects'
 import { projectGraphNodes } from '../utils/structuredData'
 
@@ -24,7 +24,7 @@ import { projectGraphNodes } from '../utils/structuredData'
  * Project Details route ("/projects/:slug").
  *
  * Renders every project from the centralized dataset with the same reusable
- * structure. Missing case-study data is represented by explicit placeholders.
+ * structure. Optional case-study sections are omitted when the data is missing.
  */
 export function ProjectDetails() {
   const { slug } = useParams()
@@ -89,15 +89,17 @@ export function ProjectDetails() {
         </RevealOnScroll>
 
         <div className="mx-auto mt-12 max-w-4xl space-y-12 sm:mt-16 lg:space-y-16">
-          <RevealOnScroll>
-            <ProjectSection eyebrow="01" title="Project overview">
-              <ProjectOverview project={project} />
-            </ProjectSection>
-          </RevealOnScroll>
+          {project.problem || project.solution ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="01" title="Project overview">
+                <ProjectOverview project={project} />
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="02" title="Project goals">
-              {project.goals?.length ? (
+          {project.goals?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="02" title="Project goals">
                 <ul className="space-y-3">
                   {project.goals.map((goal) => (
                     <li key={goal} className="flex items-start gap-3">
@@ -106,22 +108,19 @@ export function ProjectDetails() {
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <ProjectPlaceholder label="Project goals" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="03" title="My role & responsibilities">
-              {project.role ? (
-                <p className="mb-4 font-display text-lg font-semibold text-secondary">
-                  {project.role}
-                </p>
-              ) : (
-                <ProjectPlaceholder label="Role" />
-              )}
-              {project.responsibilities?.length ? (
+          {project.role || project.responsibilities?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="03" title="My role & responsibilities">
+                {project.role && (
+                  <p className="mb-4 font-display text-lg font-semibold text-secondary">
+                    {project.role}
+                  </p>
+                )}
+                {project.responsibilities?.length && (
                 <ul className="space-y-3">
                   {project.responsibilities.map((responsibility) => (
                     <li key={responsibility} className="flex items-start gap-3">
@@ -130,35 +129,28 @@ export function ProjectDetails() {
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <ProjectPlaceholder label="Responsibilities" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+                )}
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="04" title="Technical architecture">
-              {project.architecture ? (
+          {project.architecture && (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="04" title="Technical architecture">
                 <p className="body-main text-pretty">{project.architecture}</p>
-              ) : (
-                <ProjectPlaceholder label="Technical architecture" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          )}
 
           <RevealOnScroll>
             <ProjectSection eyebrow="05" title="Technology stack">
-              {project.technologies.length ? (
-                <ProjectTechStack project={project} />
-              ) : (
-                <ProjectPlaceholder label="Technology stack" />
-              )}
+              <ProjectTechStack project={project} />
             </ProjectSection>
           </RevealOnScroll>
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="06" title="Key features">
-              {project.features?.length ? (
+          {project.features?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="06" title="Key features">
                 <ul className="space-y-3">
                   {project.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-3">
@@ -167,15 +159,13 @@ export function ProjectDetails() {
                     </li>
                   ))}
                 </ul>
-              ) : (
-                <ProjectPlaceholder label="Key features" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="07" title="Engineering challenges">
-              {project.challenges?.length ? (
+          {project.challenges?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="07" title="Engineering challenges">
                 <ol className="space-y-4">
                   {project.challenges.map((challenge, index) => (
                     <li key={challenge} className="flex items-start gap-4">
@@ -189,15 +179,13 @@ export function ProjectDetails() {
                     </li>
                   ))}
                 </ol>
-              ) : (
-                <ProjectPlaceholder label="Engineering challenges" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="08" title="Technical decisions & trade-offs">
-              {project.technicalDecisions?.length ? (
+          {project.technicalDecisions?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="08" title="Technical decisions & trade-offs">
                 <div className="space-y-5">
                   {project.technicalDecisions.map((decision) => (
                     <article
@@ -221,15 +209,13 @@ export function ProjectDetails() {
                     </article>
                   ))}
                 </div>
-              ) : (
-                <ProjectPlaceholder label="Technical decisions and trade-offs" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="09" title="Results & impact">
-              {project.impact || project.stats?.length ? (
+          {project.impact || project.stats?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="09" title="Results & impact">
                 <div className="space-y-6">
                   {project.impact && (
                     <p className="body-main text-pretty">{project.impact}</p>
@@ -250,38 +236,36 @@ export function ProjectDetails() {
                     </dl>
                   ) : null}
                 </div>
-              ) : (
-                <ProjectPlaceholder label="Results and impact" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="10" title="Project gallery">
-              {project.images?.length ? (
+          {project.images?.length ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="10" title="Project gallery">
                 <ProjectGallery images={project.images} />
-              ) : (
-                <ProjectPlaceholder label="Project screenshots" />
-              )}
-            </ProjectSection>
-          </RevealOnScroll>
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="11" title="Demo, repository & availability">
-              {hasExternalLinks && <ProjectLinks links={project.links} />}
-              {project.availabilityNote ? (
-                <p className="body-main text-pretty">{project.availabilityNote}</p>
-              ) : !hasExternalLinks ? (
-                <ProjectPlaceholder label="Demo, repository, or availability" />
-              ) : null}
-            </ProjectSection>
-          </RevealOnScroll>
+          {hasExternalLinks || project.availabilityNote ? (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="11" title="Demo, repository & availability">
+                {hasExternalLinks && <ProjectLinks links={project.links} />}
+                {project.availabilityNote && (
+                  <p className="body-main text-pretty">{project.availabilityNote}</p>
+                )}
+              </ProjectSection>
+            </RevealOnScroll>
+          ) : null}
 
-          <RevealOnScroll>
-            <ProjectSection eyebrow="12" title="Related projects">
-              <RelatedProjects project={project} />
-            </ProjectSection>
-          </RevealOnScroll>
+          {getRelatedProjects(project).length > 0 && (
+            <RevealOnScroll>
+              <ProjectSection eyebrow="12" title="Related projects">
+                <RelatedProjects project={project} />
+              </ProjectSection>
+            </RevealOnScroll>
+          )}
 
           {/* Previous / next */}
           <RevealOnScroll>

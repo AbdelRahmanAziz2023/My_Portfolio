@@ -13,7 +13,8 @@ interface ProjectCardProps {
  *
  * - Internal navigation ("View Case Study") uses the router.
  * - External links (Live Demo / GitHub) render only when the URL exists.
- * - Missing screenshots use an explicit placeholder, never a logo as evidence.
+ * - Cards without an available screenshot omit the image area rather than using
+ *   a logo or placeholder as project evidence.
  */
 export function ProjectCard({ project }: ProjectCardProps) {
   const preview = getProjectPreview(project)
@@ -21,8 +22,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-outline-variant/40 bg-surface-container/90 transition-[transform,border-color,box-shadow] duration-300 ease-cinematic hover:-translate-y-0.5 hover:border-primary/35 hover:shadow-glow">
-      <figure className="overflow-hidden border-b border-outline-variant/30 bg-surface-low">
-        {preview ? (
+      {preview && (
+        <figure className="overflow-hidden border-b border-outline-variant/30 bg-surface-low">
           <img
             src={preview.src}
             alt={preview.alt}
@@ -32,22 +33,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
               preview.orientation === 'portrait' ? 'bg-surface-container' : ''
             }`}
           />
-        ) : (
-          <div className="flex h-52 flex-col items-center justify-center gap-3 px-5">
-            {project.logo && (
-              <img
-                src={project.logo}
-                alt=""
-                aria-hidden="true"
-                loading="lazy"
-                decoding="async"
-                className="h-10 w-10 object-contain opacity-75"
-              />
-            )}
-            <p className="badge-label text-on-surface-variant">Screenshot placeholder</p>
-          </div>
-        )}
-      </figure>
+        </figure>
+      )}
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
