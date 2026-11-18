@@ -27,6 +27,12 @@ export const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
     const el = ref.current
     if (!el || visible) return
 
+    const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const onMotionPreferenceChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setVisible(true)
+    }
+    reducedMotionQuery.addEventListener?.('change', onMotionPreferenceChange)
+
     let timeoutId: number | undefined
 
     const observer = new IntersectionObserver(
@@ -44,6 +50,7 @@ export const RevealOnScroll: React.FC<RevealOnScrollProps> = ({
     observer.observe(el)
     return () => {
       observer.disconnect()
+      reducedMotionQuery.removeEventListener?.('change', onMotionPreferenceChange)
       if (timeoutId) window.clearTimeout(timeoutId)
     }
   }, [delayMs, visible])

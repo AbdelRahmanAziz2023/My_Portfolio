@@ -15,6 +15,7 @@ import { RelatedProjects } from '../components/projects/RelatedProjects'
 import {
   getNextProject,
   getPreviousProject,
+  getProjectPreview,
   getProjectBySlug,
 } from '../data/projects'
 import { projectGraphNodes } from '../utils/structuredData'
@@ -62,10 +63,16 @@ export function ProjectDetails() {
       project.links?.store?.appStore ||
       project.links?.store?.googlePlay,
   )
+  const projectPreview = getProjectPreview(project)
 
   return (
     <article className="section-padding scroll-mt-24 bg-surface">
-      <Seo title={project.title} description={project.description} />
+      <Seo
+        title={project.title}
+        description={project.description}
+        image={projectPreview?.src}
+        type="article"
+      />
       <JsonLd nodes={projectGraphNodes(project)} />
       <div className="container-custom">
         {/* Back navigation */}

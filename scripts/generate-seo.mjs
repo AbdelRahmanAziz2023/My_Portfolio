@@ -222,5 +222,6 @@ async function runPostBuild() {
 
 const run = isPostBuild ? runPostBuild : runPreBuild
 run().catch((error) => {
-  console.warn(`[seo] generation skipped: ${error.message}`)
+  console.error(`[seo] generation failed: ${error.message}`)
+  process.exitCode = 1
 })
