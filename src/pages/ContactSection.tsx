@@ -28,6 +28,9 @@ const SUBMIT_ERROR_COPY: Record<ContactErrorReason, string> = {
 
 export const ContactSection: React.FC = () => {
   const contactFormConfigured = isContactFormConfigured()
+  const contactSubtitle = contactFormConfigured
+    ? 'For full-stack opportunities or web and mobile project inquiries, use the form or email me directly.'
+    : 'The contact form is not connected yet. Email is the direct route for full-stack roles or web and mobile project inquiries.'
   const [formData, setFormData] = useState<ContactFormData>(EMPTY_FORM)
   const [errors, setErrors] = useState<ContactFormErrors>({})
   const [status, setStatus] = useState<ContactStatus>('idle')
@@ -147,14 +150,14 @@ export const ContactSection: React.FC = () => {
           <SectionTitle
             eyebrow="Contact"
             title="Get in touch"
-            subtitle="For full-stack opportunities or web and mobile project inquiries, email is the most direct way to reach me."
+            subtitle={contactSubtitle}
           />
         </RevealOnScroll>
 
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
           <RevealOnScroll delayMs={60}>
             <Card elevation="floating" className="h-full">
-              <h3 className="heading-card mb-6 text-on-surface">Ways to connect</h3>
+              <h3 className="heading-card mb-6 text-on-surface">Contact details</h3>
               <div className="space-y-5">
                 <div>
                   <p className="badge-label mb-1 text-on-surface-variant">Email</p>
@@ -181,14 +184,6 @@ export const ContactSection: React.FC = () => {
                         </a>
                       ))}
                   </div>
-                </div>
-                <div className="rounded-lg border border-primary/20 bg-primary/5 p-4">
-                  <p className="font-display text-sm font-semibold text-primary">
-                    Professional inquiries
-                  </p>
-                  <p className="body-sm mt-1">
-                    Email me about full-stack roles or web and mobile project work.
-                  </p>
                 </div>
               </div>
             </Card>
@@ -339,10 +334,11 @@ export const ContactSection: React.FC = () => {
           ) : (
             <RevealOnScroll delayMs={120}>
               <Card elevation="interactive" className="flex h-full flex-col justify-center">
-                <p className="badge-label mb-3 text-secondary">Start a conversation</p>
-                <h3 className="heading-card text-on-surface">Prefer email?</h3>
+                <p className="badge-label mb-3 text-secondary">Recruiter &amp; project inquiries</p>
+                <h3 className="heading-card text-on-surface">Start a conversation</h3>
                 <p className="body-main mt-4 max-w-md text-pretty">
-                  Contact me directly about full-stack roles or web and mobile project inquiries.
+                  For a role, mention the position or team. For freelance work, share the problem,
+                  intended users, and target platforms.
                 </p>
                 <a
                   href={`mailto:${about.email}`}

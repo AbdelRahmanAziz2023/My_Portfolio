@@ -52,7 +52,11 @@ export const HeroSection: React.FC = () => {
                 <a href="#contact" className={buttonClasses('secondary', 'lg')}>
                   Contact Me
                 </a>
-                <a href={resumeUrl} download className={buttonClasses('outline', 'lg')}>
+                <a
+                  href={resumeUrl}
+                  download
+                  className="inline-flex min-h-11 items-center px-2 text-sm font-medium text-on-surface-variant underline decoration-primary/50 underline-offset-4 transition-colors hover:text-secondary"
+                >
                   Download CV
                 </a>
               </div>
