@@ -85,7 +85,7 @@ export const projects: Project[] = [
 
     year: "2026",
 
-    role: "React Native Developer",
+    role: "Full-Stack Mobile Developer",
 
     logo: "/images/projects/link/link-icon.webp",
 

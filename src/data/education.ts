@@ -15,6 +15,17 @@ export const education: EducationItem[] = [
     description: "Bachelor's degree program focused on computer science fundamentals, software development, and artificial intelligence, providing a strong foundation for a career in technology.",
     logo: "/images/logo/fci-fayoum-logo.webp",
   },
+  {
+    id: "iti-mobile-development-ptp",
+    degree: "Diploma in Software Application Development",
+    institution: "Information Technology Institute (ITI)",
+    field: "Mobile Application Development",
+    startDate: "2024/10",
+    endDate: "2025/06",
+    description:
+      "Nine-month professional training program in cross-platform mobile application development.",
+    logo: "/images/logo/iti-logo.webp",
+  }
 ];
 
 /**
